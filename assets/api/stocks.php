@@ -285,7 +285,7 @@ if ($action === 'delete') {
   json_ok(['ok' => true]);
 }
 
-json_err('unknown action', 404);
+json_err('unknown action', 404); {
 
   if (!$id) jdie(false, ['error'=>'id required']);
   if (isset($pdo)) {
