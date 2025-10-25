@@ -19,7 +19,7 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" sizes="32x32" href="../image/logo_nocapt.png" />
-    <title>VAZATECH — Topup Game</title>
+    <title>VAZATECH — Topup Game Murah</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -79,7 +79,7 @@ $profileHref = $isAdmin ? 'admin/index.php' : 'profile';
 $initials = '';
 if ($loggedIn && $isAdmin): ?>
   <!-- Admin: pakai tombol seperti tombol login -->
-  <a href="admin/index" class="btn btn-login">Admin Area</a>
+  <a href="admin/index" class="btn btn-login" target="_blank">Admin Area</a>
 
 <?php elseif ($loggedIn): ?>
   <!-- User biasa: tampilkan avatar -->

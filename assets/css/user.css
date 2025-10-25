@@ -35,7 +35,17 @@ header {
   align-items: center;
   gap: 16px;
   padding: 0 18px;
-  background: var(--topbar-bg);
+  background: radial-gradient(
+      1100px 520px at 10% -10%,
+      rgba(46, 107, 255, 0.18),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 480px at 100% 0%,
+      rgba(26, 115, 232, 0.22),
+      transparent 55%
+    ),
+    var(--bg);
   color: var(--brand-text);
   box-shadow: 0 1px 0 #ffffff0a inset;
 }
