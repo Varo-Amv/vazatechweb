@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // kirim email (sederhana). Di lokal/XAMPP mungkin tidak terkirim—tampilkan link-nya di layar juga.
         $judul_email = "Reset Password • VAZATECH";
     $isi_email   = "
-      Hai <b>" . htmlspecialchars($nama) . "</b>,<br><br>
-      Akun kamu dengan email <b>" . htmlspecialchars($email) . "</b> meminta link reset password.<br>
+      Hai <b>" . htmlspecialchars($user['nama']) . "</b>,<br><br>
+      Akun kamu dengan email <b>" . htmlspecialchars($user['email']) . "</b> meminta link reset password.<br>
       Silakan reset password kamu lewat tautan berikut:<br><br>
       <a href='{$link}' target='_blank' style='display:inline-block;padding:10px 14px;background:#1a73e8;color:#fff;border-radius:8px;text-decoration:none;'>Verifikasi Sekarang</a><br><br>
       Atau salin URL ini ke browser:<br>
