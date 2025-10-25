@@ -7,11 +7,7 @@ require_role(['admin','staff']); // hanya admin/staff
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>VAZATECH · Admin · Dashboard</title>
-
-    <title>Stocks · Admin</title>
-
+    <title>Stocks 路 Admin</title>
 <?php include("../inc/hdradmin.php")?>
 
     <main class="container">
@@ -21,10 +17,7 @@ require_role(['admin','staff']); // hanya admin/staff
         <a href="#" class="active"><i class="fas fa-box"></i>Stocks</a>
         <a href="users"><i class="fas fa-users"></i>Users</a>
         <a href="orders"><i class="fas fa-shopping-cart"></i>Orders</a>
-
-
         <a href="banners"><i class="fas fa-image"></i>Banners</a>
-
         <a href="blog-list"><i class="fas fa-newspaper"></i>Blog</a>
       </aside>
 
@@ -94,11 +87,8 @@ require_role(['admin','staff']); // hanya admin/staff
                     <tr>
                       <th>Produk</th>
                       <th>Game</th>
-
-
                       <th>Gambar</th>
                       <th>Kategori</th>
-
                       <th>Mata Uang</th>
                       <th>Harga</th>
                       <th>Stock</th>
@@ -140,15 +130,12 @@ require_role(['admin','staff']); // hanya admin/staff
         <label>Game
           <input type="text" name="game" id="f_game" required>
         </label>
-
-
         <label>Image URL
         <input type="url" name="image_url" id="f_image" placeholder="https://... (imgbb, dll)">
         </label>
         <label>Kategori
         <input type="text" name="category" id="f_category" placeholder="mis. terpopuler / promo / terbaru">
         </label>
-
         <label>Mata Uang
           <input type="text" name="currency" id="f_currency" placeholder="DM / VP / GC / IDR" required>
         </label>
@@ -204,11 +191,8 @@ const f_currency = document.getElementById('f_currency');
 const f_price = document.getElementById('f_price');
 const f_stock = document.getElementById('f_stock');
 const f_min = document.getElementById('f_min');
-
-
 const f_image = document.getElementById('f_image');
 const f_category = document.getElementById('f_category');
-
 
 const stockForm = document.getElementById('stockForm');
 const btnCancel = document.getElementById('btnCancel');
@@ -230,11 +214,6 @@ function statusChip(s){
   return `<span class="status-chip ${cls}">${text}</span>`;
 }
 function tr(r){
-
-  return `<tr>
-    <td>${escapeHtml(r.product_name)}</td>
-    <td>${escapeHtml(r.game)}</td>
-
   const thumb = r.image_url
     ? `<img src="${escapeHtml(r.image_url)}" alt="" onerror="this.style.opacity=0.2"
              style="width:44px;height:28px;object-fit:cover;border-radius:6px;border:1px solid #e5e7eb;">`
@@ -245,7 +224,6 @@ function tr(r){
     <td>${escapeHtml(r.game)}</td>
     <td>${thumb}</td>
     <td>${escapeHtml(r.category || '')}</td>
-
     <td>${escapeHtml(r.currency)}</td>
     <td>${rupiah(r.price)}</td>
     <td>${r.stock}</td>
@@ -295,18 +273,6 @@ window.openEdit = async function(id){
   const row = await api(`${API}?action=show&id=${id}`);
   if (!row || !row.id) return;
   document.getElementById('modalTitle').textContent = 'Edit Stock';
-
-  f_id.value = row.id;
-  f_product.value = row.product_name;
-  f_game.value = row.game;
-  f_currency.value = row.currency;
-  f_price.value = row.price;
-  f_stock.value = row.stock;
-  f_min.value = row.min_stock;
-  show(stockModal);
-};
-
-
   f_id.value       = row.id;
   f_product.value  = row.product_name;
   f_game.value     = row.game;
@@ -318,7 +284,6 @@ window.openEdit = async function(id){
   f_min.value      = row.min_stock;
   show(stockModal);
 };
-
 
 
 /* ===== Delete ===== */
