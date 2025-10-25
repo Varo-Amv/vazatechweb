@@ -113,11 +113,11 @@ if ($action === 'list') {
   $status = trim((string)($_GET['status'] ?? ''));
 
 
-  $sql = "SELECT id, product_name, game, currency, price, stock, min_stock, status, updated_at
+  $sql = "SELECT id, product_name, game, category, image_url, currency, price, stock, min_stock, status, updated_at
           FROM stocks
           WHERE 1";
 
-  $sql = "SELECT id, product_name, game, image_url, category, currency, price, stock, min_stock, status,
+  $sql = "SELECT id, product_name, game, category, image_url, currency, price, stock, min_stock, status,
                  DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') AS updated_at
           FROM stocks WHERE 1";
 
@@ -160,7 +160,7 @@ if ($action === 'show') {
 
   if ($id <= 0) json_err('invalid id');
 
-  $row = db_row("SELECT id, product_name, game, currency, price, stock, min_stock, status, updated_at
+  $row = db_row("SELECT id, product_name, game, category, image_url, currency, price, stock, min_stock, status, updated_at
                  FROM stocks WHERE id = :id", [':id' => $id]);
   if (!$row) json_err('not found', 404);
   json_ok($row);
@@ -170,6 +170,8 @@ if ($action === 'create' || $action === 'update') {
   $id           = (int)($_POST['id'] ?? 0);
   $product_name = trim((string)($_POST['product_name'] ?? ''));
   $game         = trim((string)($_POST['game'] ?? ''));
+  $category     = trim((string)($_POST['category'] ?? ''));
+  $image_url    = trim((string)($_POST['image_url'] ?? ''));
   $currency     = trim((string)($_POST['currency'] ?? ''));
   $price        = (int)($_POST['price']  ?? 0);
   $stock        = (int)($_POST['stock']  ?? 0);
@@ -183,11 +185,13 @@ if ($action === 'create' || $action === 'update') {
 
   if ($action === 'create') {
     $ok = db_exec(
-      "INSERT INTO stocks (product_name, game, currency, price, stock, min_stock, status, updated_at)
-       VALUES (:product_name, :game, :currency, :price, :stock, :min_stock, :status, NOW())",
+      "INSERT INTO stocks (product_name, game, category, image_url, currency, price, stock, min_stock, status, updated_at)
+       VALUES (:product_name, :game, :category, :image_url, :currency, :price, :stock, :min_stock, :status, NOW())",
       [
         ':product_name' => $product_name,
         ':game'         => $game,
+        ':category'    => $category,
+        ':image_url'   => $image_url,
         ':currency'     => $currency,
         ':price'        => $price,
         ':stock'        => $stock,
@@ -205,6 +209,8 @@ if ($action === 'create' || $action === 'update') {
     "UPDATE stocks
      SET product_name = :product_name,
          game         = :game,
+         category     = :category,
+         image_url    = :image_url,
          currency     = :currency,
          price        = :price,
          stock        = :stock,
@@ -214,7 +220,9 @@ if ($action === 'create' || $action === 'update') {
      WHERE id = :id",
     [
       ':product_name' => $product_name,
-      ':game'         => $game,
+      ':game'         => $game, 
+      ':category'    => $category,
+      ':image_url'   => $image_url,
       ':currency'     => $currency,
       ':price'        => $price,
       ':stock'        => $stock,
@@ -227,7 +235,7 @@ if ($action === 'create' || $action === 'update') {
   json_ok(['ok' => true]);
 
   if (!$id) jdie(false, ['error'=>'id required']);
-  $sql = "SELECT id, product_name, game, image_url, category, currency, price, stock, min_stock, status,
+  $sql = "SELECT id, product_name, game, category, image_url, currency, price, stock, min_stock, status,
                  DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') AS updated_at
           FROM stocks WHERE id=?";
   if (isset($pdo)) {
@@ -242,8 +250,8 @@ if ($action === 'create' || $action === 'update') {
   $id          = (int)($_POST['id'] ?? 0);
   $product     = str('product_name');
   $game        = str('game');
-  $image_url   = str('image_url');
   $category    = strtolower(trim(str('category'))); // distandarkan lowcase
+  $image_url   = str('image_url');
   $currency    = strtoupper(trim(str('currency')));
   $price       = (int)str('price');
   $stock       = (int)str('stock');
@@ -255,22 +263,22 @@ if ($action === 'create' || $action === 'update') {
   else if ($min_stock > 0 && $stock < $min_stock) $status = 'low';
 
   if ($action === 'create') {
-    $sql = "INSERT INTO stocks (product_name, game, image_url, category, currency, price, stock, min_stock, status, updated_at)
+    $sql = "INSERT INTO stocks (product_name, game, category, image_url, currency, price, stock, min_stock, status, updated_at)
             VALUES (?,?,?,?,?,?,?,?,?,NOW())";
-    $params = [$product,$game,$image_url,$category,$currency,$price,$stock,$min_stock,$status];
+    $params = [$product,$game,$category,$image_url,$currency,$price,$stock,$min_stock,$status];
   } else {
     if (!$id) jdie(false, ['error'=>'id required']);
-    $sql = "UPDATE stocks SET product_name=?, game=?, image_url=?, category=?, currency=?, price=?, stock=?, min_stock=?, status=?, updated_at=NOW()
+    $sql = "UPDATE stocks SET product_name=?, game=?, category=?, image_url=?, currency=?, price=?, stock=?, min_stock=?, status=?, updated_at=NOW()
             WHERE id=?";
-    $params = [$product,$game,$image_url,$category,$currency,$price,$stock,$min_stock,$status,$id];
+    $params = [$product,$game,$category,$image_url,$currency,$price,$stock,$min_stock,$status,$id];
   }
 
   if (isset($pdo)) {
     $st=$pdo->prepare($sql); $ok=$st->execute($params); jdie($ok,['ok'=>$ok]);
   } else {
     $st=$koneksi->prepare($sql);
-    if ($action==='create') { $st->bind_param('sssssiiss', $product,$game,$image_url,$category,$currency,$price,$stock,$min_stock,$status); }
-    else { $st->bind_param('sssssiissi', $product,$game,$image_url,$category,$currency,$price,$stock,$min_stock,$status,$id); }
+    if ($action==='create') { $st->bind_param('sssssiiss', $product,$game,$category,$image_url,$currency,$price,$stock,$min_stock,$status); }
+    else { $st->bind_param('sssssiissi', $product,$game,$category,$image_url,$currency,$price,$stock,$min_stock,$status,$id); }
     $ok=$st->execute(); jdie($ok,['ok'=>$ok]);
   }
 

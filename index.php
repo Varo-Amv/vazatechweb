@@ -191,7 +191,7 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
     </div>
     <?php endif; ?>
 
-    <!-- ====== TERPOPULER ====== -->
+    <!-- ====== KATEGORI GAME ====== -->
     <?php if (empty($categoriesToShow)): ?>
   <h3 class="section-title">PRODUK</h3>
   <div style="color:var(--muted)">Belum ada kategori/produk.</div>

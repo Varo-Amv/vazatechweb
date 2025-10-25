@@ -1,145 +1,20 @@
-/* =================== VARIABLES & RESETS =================== */
+/* ====== HOME (assets/css/home.css) ====== */
+/* Tipografi ringan & kontainer */
 :root {
-  /* dari awal */
-  --bg: #ffffff;
-  --ink: #0b0f14;
-  --blue: #1e63e9;
-  --chip-border: #cfcfcf;
-  --card-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
-  /* dari HOME */
   --brand: #2563eb;
   --page-bg: #ffffff;
   --text: #0f172a;
-  --muted: #64748b; /* gunakan versi HOME utk --muted */
+  --muted: #64748b;
 }
 * {
   box-sizing: border-box;
 }
-html,
 body {
   margin: 0;
-  padding: 0;
-}
-body {
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    sans-serif;
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
   background: var(--page-bg);
   color: var(--text);
 }
-
-/* =================== LAYOUT UMUM (bagian awal) =================== */
-.container {
-  max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: 24px;
-}
-
-/* ---------- HERO (versi sketsa awal) ---------- */
-.hero {
-  margin-top: 22px;
-}
-.hero-frame {
-  height: 172px;
-  background: #000;
-  border-radius: 26px;
-  position: relative;
-  overflow: hidden;
-}
-.hero-card {
-  position: absolute;
-  left: 9%;
-  right: 9%;
-  top: -20px;
-  height: 140px;
-  border-radius: 26px;
-  background: #d9d9d9;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-.hero-dots {
-  display: flex;
-  gap: 18px;
-  justify-content: center;
-  list-style: none;
-  margin: 10px 0 0;
-  padding: 0;
-}
-.hero-dots .dot {
-  width: 40px;
-  height: 8px;
-  border-radius: 999px;
-  background: #d5d7db;
-}
-.hero-dots .dot.active {
-  background: var(--blue);
-}
-
-/* ---------- CHIPS (awal) ---------- */
-.chips {
-  margin: 24px 0 8px;
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-.chip {
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: 1px solid var(--chip-border);
-  background: #fff;
-  color: var(--ink);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* ---------- GRID 4 kartu (awal) ---------- */
-.section-title {
-  margin: 20px 0 12px;
-  font-weight: 900;
-  font-size: 1.15rem;
-  letter-spacing: 0.2px;
-} /* pakai versi terakhir */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  gap: 28px;
-}
-.card {
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: var(--card-shadow);
-  padding: 16px;
-}
-.thumb {
-  width: 100%;
-  height: 120px;
-  border-radius: 12px;
-  background: #ddd;
-}
-
-/* ---------- SKELETON ---------- */
-.skeleton {
-  position: relative;
-  overflow: hidden;
-}
-.skeleton::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.5) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: translateX(-100%);
-  animation: shimmer 1.8s infinite;
-}
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* =================== HOME (assets/css/home.css) =================== */
 .wrap {
   max-width: 1120px;
   margin: 28px auto;
@@ -197,7 +72,7 @@ body {
   border-color: var(--brand);
 }
 
-/* ---------- PILLS (HOME) ---------- */
+/* ---------- PILLS (kategori game) ---------- */
 .pills {
   display: flex;
   gap: 10px;
@@ -219,19 +94,27 @@ body {
   border-color: #cbd5e1;
 }
 .pill.is-active {
-  color: #2e6bff;
+  color: #fff;
   background: var(--brand);
   border-color: var(--brand);
 }
 
-/* ---------- GRID PRODUK (HOME) ---------- */
+/* ---------- SECTION TITLE ---------- */
+.section-title {
+  margin: 18px 0 10px;
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: 0.2px;
+}
+
+/* ---------- GRID PRODUK ---------- */
 .grid {
   display: grid;
   gap: 18px;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
 }
 
-/* ---------- CARD (punyamu) ---------- */
+/* ---------- CARD (persis dari kamu) ---------- */
 .card {
   --card-bg: #ffffff;
   --card-accent: #2e6bff;
@@ -250,6 +133,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
 }
+
 .card__shine {
   position: absolute;
   inset: 0;
@@ -287,7 +171,7 @@ body {
   top: 12px;
   right: 12px;
   background: #10b981;
-  color: #fff;
+  color: white;
   padding: 0.25em 0.5em;
   border-radius: 999px;
   font-size: 0.7em;
@@ -362,7 +246,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   transform: scale(0.9);
@@ -431,18 +315,109 @@ body {
   }
 }
 
-/* gambar di dalam frame kartu (1x saja, tidak dobel) */
+/* Responsif kecil */
+@media (max-width: 640px) {
+  .hero {
+    height: 180px;
+  }
+  .hero__slide img {
+    height: 180px;
+  }
+}
 .card__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 12px;
+  border-radius: 12px; /* mengikuti radius frame */
+}
+/* ====== MOBILE HORIZONTAL SCROLL ====== */
+@media (max-width: 640px) {
+  /* Pills --------------------------------------------------- */
+  .pills-scroll {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 6px 2px 2px 2px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 12px;
+  }
+  .pills-scroll::-webkit-scrollbar {
+    height: 0;
+  } /* hide bar iOS/Chrome */
+  .pill {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  } /* setiap pill width auto */
+
+  /* Cards / produk ----------------------------------------- */
+  .cards-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 6px 2px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cards-scroll::-webkit-scrollbar {
+    height: 0;
+  }
+
+  /* Lebar tiap card: ~78% layar agar terasa seperti carousel */
+  .cards-scroll .card {
+    flex: 0 0 78vw; /* bisa ubah ke 72–86vw sesuai selera */
+    scroll-snap-align: start;
+  }
+
+  /* (opsional) beri “padding ghost” kiri/kanan biar tidak nempel */
+  .cards-scroll::before,
+  .cards-scroll::after {
+    content: "";
+    flex: 0 0 12px;
+  }
+}
+/* ===== Spacing umum ===== */
+.section-title {
+  margin: 20px 0 12px;
 }
 
-/* ====== MOBILE HORIZONTAL SCROLL (SATU VERSI SAJA) ====== */
+.pills-scroll {
+  margin-top: 14px; /* jarak dari banner */
+  margin-bottom: 14px;
+}
+
+/* ===== DESKTOP / TABLET: tampil grid normal ===== */
+@media (min-width: 641px) {
+  .pills-scroll {
+    display: flex;
+    flex-wrap: wrap; /* kembali ke beberapa baris */
+    gap: 10px 12px;
+    overflow: visible; /* tidak horizontal scroll */
+    scroll-snap-type: none;
+    mask-image: none;
+  }
+
+  /* Grid kartu 3–4 kolom tergantung lebar */
+  .cards-scroll {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+    overflow: visible;
+    scroll-snap-type: none;
+    mask-image: none;
+    padding: 0;
+  }
+
+  .cards-scroll .card {
+    flex: 0 0 auto; /* matikan ukuran horizontal */
+    width: 100%;
+    max-width: 360px; /* batasi biar nggak terlalu melebar */
+  }
+}
+/* ===== MOBILE: horizontal scroll ===== */
 @media (max-width: 640px) {
-  /* Pills */
+  /* Pills slider */
   .pills-scroll {
     display: flex;
     gap: 10px;
@@ -450,7 +425,6 @@ body {
     padding: 8px 2px 6px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    margin-top: 12px;
   }
   .pills-scroll::-webkit-scrollbar {
     height: 0;
@@ -472,19 +446,21 @@ body {
   .cards-scroll::-webkit-scrollbar {
     height: 0;
   }
+
+  /* >> Ukuran kartu lebih kecil dari sebelumnya */
   .cards-scroll .card {
-    flex: 0 0 40vw;
-    max-width: 300px;
+    flex: 0 0 40vw; /* dulu 78vw; sekarang ~2/3 layar */
+    max-width: 300px; /* jangan lebih dari ini */
     scroll-snap-align: start;
   }
 
-  /* Kecilkan spacing typografi kartu */
+  /* Kurangi tinggi gambar & padding agar proporsional */
   .card .card__content {
     padding: 1em;
   }
   .card .card__image {
     height: 88px;
-  }
+  } /* default 100px -> kecil */
   .card .card__title {
     font-size: 1.02em;
   }
@@ -496,33 +472,15 @@ body {
   }
 }
 
-/* ====== DESKTOP / TABLET ====== */
-@media (min-width: 641px) {
-  .pills-scroll {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 12px;
-    overflow: visible;
-    scroll-snap-type: none;
-    mask-image: none;
-  }
-  .cards-scroll {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 18px;
-    overflow: visible;
-    scroll-snap-type: none;
-    mask-image: none;
-    padding: 0;
-  }
-  .cards-scroll .card {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: 360px;
-  }
+/* Supaya image fit di frame kartu (tetap dipakai di semua device) */
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
 }
-
-/* ====== HORIZONTAL ROW (opsional) ====== */
+/* ===== HORIZONTAL ROW UNTUK SEMUA BREAKPOINT ===== */
 .cards-row {
   display: flex;
   gap: 18px;
@@ -535,80 +493,47 @@ body {
   height: 8px;
 }
 .cards-row .card {
-  flex: 0 0 220px;
+  flex: 0 0 220px; /* lebar kartu konsisten */
   scroll-snap-align: start;
 }
+/* (opsional) hilangkan scrollbar di mobile */
 @media (max-width: 640px) {
   .cards-row::-webkit-scrollbar {
     height: 0;
   }
 }
+/* ==== OVERRIDE: .cards-row jadi grid, 5 kolom, max 10 item ==== */
 
-/* ====== SWIPER UTILITY (biarkan) ====== */
-.swiper-button-next,
-.swiper-button-prev {
-  position: absolute;
-  top: var(--swiper-navigation-top-offset, 50%);
-  width: calc(var(--swiper-navigation-size) / 44 * 27);
-  height: var(--swiper-navigation-size);
-  margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
-  z-index: 10;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--swiper-navigation-color, var(--swiper-theme-color));
-}
-.swiper-button-next.swiper-button-disabled,
-.swiper-button-prev.swiper-button-disabled {
-  opacity: 0.35;
-  cursor: auto;
-  pointer-events: none;
-}
-.swiper-button-next.swiper-button-hidden,
-.swiper-button-prev.swiper-button-hidden {
-  opacity: 0;
-  cursor: auto;
-  pointer-events: none;
+.cards-row {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+
+  /* matikan gaya carousel */
+  overflow: visible !important;
+  scroll-snap-type: none !important;
+  -webkit-overflow-scrolling: auto !important;
+  padding: 0 !important;
 }
 
-/* ====== RESPONSIVE TAMBAHAN (dari awal) ====== */
-@media (max-width: 1024px) {
-  .hero-card {
-    left: 6%;
-    right: 6%;
-  }
-  .cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.cards-row .card {
+  /* pastikan tidak jadi “slide” */
+  flex: initial !important;
+  width: 100% !important;
+  max-width: none !important;
 }
-@media (max-width: 720px) {
-  .hero-frame {
-    height: 150px;
-  }
-  .hero-card {
-    height: 120px;
-    top: -16px;
-  }
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
+/* tampilkan maksimal 10 kartu */
+.cards-row .card:nth-child(n + 11) {
+  display: none !important;
 }
-@media (max-width: 420px) {
-  .hero-card {
-    left: 4%;
-    right: 4%;
-  }
-  .cards {
-    grid-template-columns: 1fr;
-  }
-}
-/* tinggi hero HOME versi kecil */
+
+/* (opsional) kalau 5 kolom terlalu kecil di mobile, ganti di sini */
 @media (max-width: 640px) {
-  .hero {
-    height: 180px;
-  }
-  .hero__slide img {
-    height: 180px;
+  .cards-row {
+    /* contoh: 2 kolom di HP */
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
+
+/* ====== END HOME (assets/css/home.css) ====== */
