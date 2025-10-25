@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       Terima kasih,<br>VAZATECH
     ";
 
-    $send = kirim_email($email, $nama, $isi_email);
+    kirim_email($user['email'], $user['nama'], $isi_email);
     if (!$send['ok']) {
       // boleh lanjut simpan user, tapi beri tahu bahwa email gagal terkirim
        $err .= "<li>Gagal mengirim link reset password: </li>";
