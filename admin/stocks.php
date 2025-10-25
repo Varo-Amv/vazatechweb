@@ -7,7 +7,7 @@ require_role(['admin','staff']); // hanya admin/staff
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stocks 路 Admin</title>
+    <title>Stocks · Admin</title>
 <?php include("../inc/hdradmin.php")?>
 
     <main class="container">

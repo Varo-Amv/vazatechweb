@@ -7,11 +7,7 @@ require_role(['admin','staff']); // hanya admin/staff
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>VAZATECH Admin · Users</title>
-
     <title>Users · Admin</title>
-
 
 <?php include("../inc/hdradmin.php")?>
 
@@ -22,10 +18,7 @@ require_role(['admin','staff']); // hanya admin/staff
         <a href="stocks"><i class="fas fa-box"></i>Stocks</a>
         <a href="#" class="active"><i class="fas fa-users"></i>Users</a>
         <a href="orders"><i class="fas fa-shopping-cart"></i>Orders</a>
-
-
         <a href="banners"><i class="fas fa-image"></i>Banners</a>
-
         <a href="blog-list"><i class="fas fa-newspaper"></i>Blog</a>
       </aside>
 
