@@ -13,9 +13,9 @@ $home = function_exists('url') ? url('/') : '/';
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
-<<<<<<< HEAD
+
   <link rel="stylesheet" href="./assets/css/404.css">
-=======
+
   <style>
     :root{
       --bg:#0b0614;
@@ -67,7 +67,7 @@ $home = function_exists('url') ? url('/') : '/';
     .btn:hover{filter:brightness(1.07); transform:translateY(-1px)}
     .hint{font-size:13px; color:#9fb2ff; text-align:center; margin-top:10px}
   </style>
->>>>>>> ed633ce (Re-init repo)
+
 </head>
 <body>
   <div class="card">

@@ -11,11 +11,11 @@
 * {
   box-sizing: border-box;
 }
-<<<<<<< HEAD
+
 .body {
-=======
+
 body {
->>>>>>> ed633ce (Re-init repo)
+
   margin: 0;
   font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);

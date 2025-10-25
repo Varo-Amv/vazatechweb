@@ -3,13 +3,13 @@
 require_once __DIR__ . '/../inc/fungsi.php'; // agar bisa pakai url() jika tersedia
 
 $home        = function_exists('url') ? url('/') : '/';
-<<<<<<< HEAD
+
 $privacyUrl  = function_exists('url') ? url('kebijakan-privasi.php') : '/kebijakan-privasi.php';
 $tncUrl      = function_exists('url') ? url('snk.php') : '/snk.php';
-=======
+
 $privacyUrl  = function_exists('url') ? url('user/kebijakan-privasi') : '/user/kebijakan-privasi';
 $tncUrl      = function_exists('url') ? url('user/snk') : '/user/snk';
->>>>>>> ed633ce (Re-init repo)
+
 $contactEmail= 'support@vazatech.store';
 $brand       = 'VAZATECH';
 $domain      = 'vazatech.store';

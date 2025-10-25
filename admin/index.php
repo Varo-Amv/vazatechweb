@@ -90,11 +90,11 @@ $rows = db_rows_rev("
   <head>
         <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
+
     <title>VAZATECH · Admin · Dashboard</title>
-=======
+
     <title>Dashboard · Admin</title>
->>>>>>> ed633ce (Re-init repo)
+
 <?php include("../inc/hdradmin.php")?>
     <main class="container">
       <div class="sidebar">
@@ -102,10 +102,10 @@ $rows = db_rows_rev("
         <a href="stocks"><i class="fas fa-box"></i>Stocks</a>
         <a href="users"><i class="fas fa-users"></i>Users</a>
         <a href="orders"><i class="fas fa-shopping-cart"></i>Orders</a>
-<<<<<<< HEAD
-=======
+
+
         <a href="banners"><i class="fas fa-image"></i>Banners</a>
->>>>>>> ed633ce (Re-init repo)
+
         <a href="blog-list"><i class="fas fa-newspaper"></i>Blog</a>
       </div>
       <div class="content">

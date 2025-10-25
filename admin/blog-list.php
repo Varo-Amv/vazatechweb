@@ -4,12 +4,12 @@ require_once __DIR__ . '/../inc/session.php';
 require_once __DIR__ . '/../inc/koneksi.php';
 require_once __DIR__ . '/../inc/auth.php';
 require_once __DIR__ . '/../inc/fungsi.php';
-<<<<<<< HEAD
+
 require_login();
 if (($_SESSION['user']['role'] ?? '') !== 'admin') { header('HTTP/1.1 403 Forbidden'); exit('Akses ditolak.'); }
-=======
+
 require_role(['admin','staff']); // hanya admin/staff
->>>>>>> ed633ce (Re-init repo)
+
 
 // CSRF
 if (empty($_SESSION['csrf_blog'])) { $_SESSION['csrf_blog'] = bin2hex(random_bytes(32)); }
@@ -124,10 +124,10 @@ $res = $stmt->get_result();
         <a href="stocks"><i class="fas fa-box"></i>Stocks</a>
         <a href="users"><i class="fas fa-users"></i>Users</a>
         <a href="orders"><i class="fas fa-shopping-cart"></i>Orders</a>
-<<<<<<< HEAD
-=======
+
+
         <a href="banners"><i class="fas fa-image"></i>Banners</a>
->>>>>>> ed633ce (Re-init repo)
+
         <a href="#" class="active"><i class="fas fa-newspaper"></i>Blog</a>
       </div>
     <link rel="stylesheet" href="../assets/css/blog-list.css">

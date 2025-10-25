@@ -97,13 +97,13 @@ function compute_status(int $stock, int $min): string {
   if ($stock <= $min)   return 'low';
   return 'in';
 }
-<<<<<<< HEAD
 
-=======
+
+
 function jdie($ok, $data=null){ echo json_encode($data ?? ['ok'=>$ok]); exit; }
 function str($k){ return trim($_POST[$k] ?? ''); }
 function g($k){ return $_GET[$k] ?? ''; }
->>>>>>> ed633ce (Re-init repo)
+
 // === Router aksi ===
 $action = $_GET['action'] ?? ($_POST['action'] ?? 'list');
 
@@ -112,15 +112,15 @@ if ($action === 'list') {
   $game   = trim((string)($_GET['game'] ?? ''));
   $status = trim((string)($_GET['status'] ?? ''));
 
-<<<<<<< HEAD
+
   $sql = "SELECT id, product_name, game, currency, price, stock, min_stock, status, updated_at
           FROM stocks
           WHERE 1";
-=======
+
   $sql = "SELECT id, product_name, game, image_url, category, currency, price, stock, min_stock, status,
                  DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') AS updated_at
           FROM stocks WHERE 1";
->>>>>>> ed633ce (Re-init repo)
+
   $p = [];
 
   if ($q !== '') {
@@ -138,8 +138,8 @@ if ($action === 'list') {
   $sql .= " ORDER BY updated_at DESC, product_name ASC LIMIT 500";
 
   json_ok(db_all($sql, $p));
-<<<<<<< HEAD
-=======
+
+
     if (isset($pdo)) {
     $st = $pdo->prepare($sql); $st->execute($p); echo json_encode($st->fetchAll(PDO::FETCH_ASSOC)); exit;
   } else {
@@ -152,12 +152,12 @@ if ($action === 'list') {
     $rows = []; while($r=$res->fetch_assoc()){ $rows[]=$r; }
     echo json_encode($rows); exit;
   }
->>>>>>> ed633ce (Re-init repo)
+
 }
 
 if ($action === 'show') {
   $id = (int)($_GET['id'] ?? 0);
-<<<<<<< HEAD
+
   if ($id <= 0) json_err('invalid id');
 
   $row = db_row("SELECT id, product_name, game, currency, price, stock, min_stock, status, updated_at
@@ -225,7 +225,7 @@ if ($action === 'create' || $action === 'update') {
   );
   if (!$ok) json_err('gagal update', 500);
   json_ok(['ok' => true]);
-=======
+
   if (!$id) jdie(false, ['error'=>'id required']);
   $sql = "SELECT id, product_name, game, image_url, category, currency, price, stock, min_stock, status,
                  DATE_FORMAT(updated_at, '%Y-%m-%d %H:%i:%s') AS updated_at
@@ -273,12 +273,12 @@ if ($action === 'create' || $action === 'update') {
     else { $st->bind_param('sssssiissi', $product,$game,$image_url,$category,$currency,$price,$stock,$min_stock,$status,$id); }
     $ok=$st->execute(); jdie($ok,['ok'=>$ok]);
   }
->>>>>>> ed633ce (Re-init repo)
+
 }
 
 if ($action === 'delete') {
   $id = (int)($_POST['id'] ?? 0);
-<<<<<<< HEAD
+
   if ($id <= 0) json_err('invalid id');
   $ok = db_exec("DELETE FROM stocks WHERE id = :id", [':id' => $id]);
   if (!$ok) json_err('gagal delete', 500);
@@ -286,7 +286,7 @@ if ($action === 'delete') {
 }
 
 json_err('unknown action', 404);
-=======
+
   if (!$id) jdie(false, ['error'=>'id required']);
   if (isset($pdo)) {
     $st=$pdo->prepare("DELETE FROM stocks WHERE id=?"); $ok=$st->execute([$id]); jdie($ok,['ok'=>$ok]);
@@ -296,4 +296,4 @@ json_err('unknown action', 404);
 }
 
 jdie(false, ['error'=>'unknown action']);
->>>>>>> ed633ce (Re-init repo)
+

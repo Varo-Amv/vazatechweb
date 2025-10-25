@@ -73,7 +73,7 @@ if (!$skip) {
 ?>
 
 <?php include("./inc/header.php"); ?>
-<<<<<<< HEAD
+
 <!DOCTYPE html>
     <!-- konten demo (hapus/ubah sesuai kebutuhan) -->
     <main class="page">
@@ -82,7 +82,7 @@ if (!$skip) {
         <p style="color: black">Isi konten disini</p>
       </section>
     </main>
-=======
+
 <link rel="stylesheet" href="<?= htmlspecialchars('/assets/css/home.css') ?>">
 <!DOCTYPE html>
     <?php
@@ -321,8 +321,6 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
   }
 })();
 </script>
-
->>>>>>> ed633ce (Re-init repo)
   </body>
 </html>
 <?php include("./inc/footer.php")?>
