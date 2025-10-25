@@ -1,0 +1,209 @@
+/* Header user VAZATECH — ./assets/css/user.css */
+:root {
+  --topbar-bg: #0a0019; /* warna bar */
+  --accent: #2e6bff; /* garis aksen bawah */
+  --brand-text: #fff;
+  --search-bg: rgba(255, 255, 255, 0.18);
+  --search-border: rgba(255, 255, 255, 0.22);
+  --search-placeholder: rgba(255, 255, 255, 0.8);
+  --btn-login-bg: #2e6bff;
+  --btn-login-bg-hover: #2458d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ====== Topbar (pakai <header> dari base kamu) ====== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 68px;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* kiri: logo, tengah: search, kanan: aksi */
+  align-items: center;
+  gap: 16px;
+  padding: 0 18px;
+  background: var(--topbar-bg);
+  color: var(--brand-text);
+  box-shadow: 0 1px 0 #ffffff0a inset;
+}
+.topbar-accent {
+  height: 4px;
+  background: linear-gradient(90deg, #40e0ff, #2e6bff 35%, #1a2cff);
+}
+
+/* Logo kiri — mengikuti base kamu (div.logo + span.logo) */
+.logo {
+  font-family: "Lexend Tera", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-size: 20px;
+  display: flex;
+}
+.logo img {
+  width: 50px;
+  height: 30px;
+  margin-right: 8px;
+  align-items: center;
+  display: flex;
+}
+header .logo span.logo {
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* Search tengah */
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 60px;
+  padding-top: 13px;
+}
+.search-input {
+  width: min(640px, 100%);
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--search-border);
+  background: var(--search-bg);
+  color: #fff;
+  font-size: 18px;
+  padding: 0 16px;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.search-input::placeholder {
+  color: var(--search-placeholder);
+}
+.search-input:focus {
+  border-color: #6aa7ff;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Aksi kanan */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.actions .cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.actions .cart .badge {
+  position: absolute;
+  right: -6px;
+  top: -4px;
+  background: #ef4444;
+  color: #fff;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 5px;
+  border-radius: 999px;
+  display: none;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s, transform 0.06s;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-login {
+  background: var(--btn-login-bg);
+  color: #fff;
+}
+.btn-login:hover {
+  background: var(--btn-login-bg-hover);
+}
+
+/* Demo page spacer (opsional) */
+.page {
+  min-height: 60vh;
+}
+.hero-demo {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 18px;
+  color: #e5e7eb;
+}
+.hero-demo h1 {
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+  header {
+    gap: 10px;
+  }
+  header .logo span.logo {
+    display: none;
+  } /* hemat ruang di layar kecil */
+  .search-input {
+    height: 40px;
+    font-size: 16px;
+  }
+  .btn {
+    height: 36px;
+    padding: 0 14px;
+  }
+}
+@media (max-width: 560px) {
+  .search-input {
+    width: 100%;
+  }
+}
+.avatar-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #0b0715;
+  transition: transform 0.15s ease;
+  overflow: hidden;
+}
+.avatar-btn:hover {
+  transform: scale(1.03);
+}
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* kalau pakai avatar huruf */
+.avatar-text {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}

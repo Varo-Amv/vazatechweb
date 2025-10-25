@@ -1,0 +1,40 @@
+RewriteEngine on
+RewriteBase /
+
+# Hanya slash berulang: //////  -> 404
+RewriteCond %{REQUEST_URI} ^//+$
+RewriteRule ^ - [R=404,L]
+
+# Paksa HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L] 
+
+# Jika user menulis .../index.php apa pun -> hapus "index.php" dari URL (301)
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.php(\s|\?) [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Jika user menulis .../index.html apa pun -> hapus "index.html" dari URL (301)
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(\s|\?) [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Tanpa ada user
+RewriteRule ^([A-Za-z0-9\-_]+)/?$ user/$1.php [L,QSA]
+
+# Kalau file/foldernya ada, biarkan
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ===== Blog routes =====
+# /blog                     -> blog/index.php  (opsional: list)
+RewriteRule ^blog/?$ blog/index.php [L,QSA]
+
+# /blog/slug-artikel        -> blog/index.php?slug=slug-artikel
+RewriteRule ^blog/([A-Za-z0-9\-_]+)/?$ blog/index.php?slug=$1 [L,QSA]
+
+# Atur halaman error khusus
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php

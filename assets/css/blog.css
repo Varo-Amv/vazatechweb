@@ -1,0 +1,227 @@
+:root {
+  /* LATAR HALAMAN: biru gelap seperti contoh */
+  --bg1: #0b1024; /* dasar navy */
+  --bg2: #090d1e; /* gradasi bawah */
+  --text: #e6eeff; /* teks global */
+  --muted: #b6c3ff; /* teks sekunder */
+
+  /* KARTU: tetap putih */
+  --tile: #ffffff;
+  --line: #e5e7eb;
+  --thumb: #eef2ff;
+
+  /* Aksi */
+  --accent: #2563eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  /* Gradien + glow seperti di screenshot (pojok kanan atas & kiri bawah) */
+  background: radial-gradient(
+      900px 520px at 100% 0%,
+      rgba(37, 99, 235, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 520px at 0% 100%,
+      rgba(59, 130, 246, 0.16),
+      transparent 60%
+    ),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #0f132b; /* biar kontras di tema gelap */
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.35);
+}
+
+h1 {
+  font-size: 28px;
+  margin: 0;
+}
+.meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===== GRID ===== */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+@media (max-width: 920px) {
+  .tiles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Link pembungkus kartu */
+.tile-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Kartu putih + teks gelap */
+.tile {
+  background: var(--tile);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease;
+  color: #0f172a;
+}
+.tile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+  border-color: #dfe3ea;
+}
+
+/* Thumbnail */
+.tile-thumb {
+  height: 112px;
+  border-radius: 16px;
+  background: var(--thumb);
+  position: relative;
+}
+.tile-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 14px;
+  background: #dddfe3;
+}
+.tile-thumb-img {
+  width: 100%;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: #f8fafc;
+}
+
+/* Teks dalam kartu */
+.tile-title {
+  margin: 12px 2px 0;
+  font-size: 15.5px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.tile-meta {
+  margin: 6px 2px 0;
+  font-size: 12.5px;
+  color: #475569;
+}
+.tile-desc {
+  margin: 8px 2px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #334155;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Tombol */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+}
+.btn:hover {
+  filter: brightness(1.05);
+}
+:root {
+  /* ...variabel kamu yang lain... */
+  --tile: #ffffff; /* base masih putih */
+  --tile2: #f3f7ff; /* putih dengan tint biru */
+  --tile-line: #dae6ff; /* border kebiruan */
+  --tile-line-hover: #c2d4ff;
+  --tile-shadow: 0 12px 24px rgba(37, 99, 235, 0.12);
+  --tile-shadow-hover: 0 18px 40px rgba(37, 99, 235, 0.18);
+  --brand-blue: #2563eb; /* utama */
+  --brand-blue-ring: rgba(37, 99, 235, 0.6); /* ring normal */
+  --brand-blue-ring-hover: rgba(37, 99, 235, 0.8); /* ring hover */
+}
+
+/* Kartu: putih dengan tint + ring halus */
+.tile {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f7ff 100%);
+  border: 2px solid var(--brand-blue-ring); /* >>> border biru */
+  border-radius: 20px;
+  padding: 18px;
+  color: #0f172a;
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.14),
+    /* glow biru lembut */ 0 1px 0 rgba(255, 255, 255, 0.6) inset; /* bevel tipis, mirip login */
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease;
+}
+
+/* aksen tipis di bagian atas kartu */
+.tile::before {
+  display: none !important;
+}
+
+.tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--brand-blue-ring-hover);
+  box-shadow: 0 18px 42px rgba(37, 99, 235, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  background: linear-gradient(180deg, #ffffff 0%, #eef4ff 100%);
+}
+
+/* (opsional) buat header & meta sedikit lebih kontras di kartu */
+.tile-meta {
+  color: #475569;
+}
+.tile-desc {
+  color: #334155;
+}

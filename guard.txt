@@ -1,0 +1,21 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (empty($_SESSION['user'])) {
+  header('Location: /topupweb/login.php'); exit;
+}
+?>
+
+<?php
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+if (empty($_SESSION['user'])) {
+  header('Location: /topupweb/login.php'); exit;
+}
+if (!in_array($_SESSION['user']['role'], ['admin','staff'], true)) {
+  http_response_code(403); echo "Lo bukan admin."; exit;
+}
+?>
+
+require __DIR__.'/../inc/auth.php';
+require_login(); // siapa pun yang login boleh akses
+
+"<?= url_dasar()."/.." ?>"
