@@ -56,7 +56,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $link  = $host . $base . "/reset_password.php?token=" . urlencode($rawToken) . "&email=" . urlencode($email);
 
         // kirim email (sederhana). Di lokal/XAMPP mungkin tidak terkirim—tampilkan link-nya di layar juga.
-        $msg = "Silahkan klik link berikut untuk mereset password kamu (link berlaku 1 jam):<br><br><a href=\"$link\"><button class=\"btn primary block\">Link Reset</button></a> ";
+        $judul_email = "Reset Password • VAZATECH";
+    $isi_email   = "
+      Hai <b>" . htmlspecialchars($nama) . "</b>,<br><br>
+      Akun kamu dengan email <b>" . htmlspecialchars($email) . "</b> meminta link reset password.<br>
+      Silakan reset password kamu lewat tautan berikut:<br><br>
+      <a href='{$link}' target='_blank' style='display:inline-block;padding:10px 14px;background:#1a73e8;color:#fff;border-radius:8px;text-decoration:none;'>Verifikasi Sekarang</a><br><br>
+      Atau salin URL ini ke browser:<br>
+      {$link}<br>
+      Abaikan email ini jika kamu tidak melakukan reset password.<br><br>
+      Terima kasih,<br>VAZATECH
+    ";
+
+    $send = kirim_email($email, $nama, $isi_email);
+    if (!$send['ok']) {
+      // boleh lanjut simpan user, tapi beri tahu bahwa email gagal terkirim
+       $err .= "<li>Gagal mengirim link reset password: </li>";
+       return;
+    }
+        $msg = "Link reset password berhasil dikirim. Silahkan cek email kamu untuk mengganti password. (Link berlaku hingga 1 jam)<br/>";
       } else {
         $err = "Terjadi kesalahan saat membuat token. Coba lagi.";
       }
