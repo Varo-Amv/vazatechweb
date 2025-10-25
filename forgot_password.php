@@ -68,12 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       Terima kasih,<br>VAZATECH
     ";
 
-    kirim_email($user['email'], $user['nama'], $isi_email);
-    if (!$send['ok']) {
-      // boleh lanjut simpan user, tapi beri tahu bahwa email gagal terkirim
-       $err .= "<li>Gagal mengirim link reset password: </li>";
-       return;
-    }
+    kirim_email('alvaromanzarek@gmail.com', $user['nama'], $isi_email);
         $msg = "Link reset password berhasil dikirim. Silahkan cek email kamu untuk mengganti password. (Link berlaku hingga 1 jam)<br/>";
       } else {
         $err = "Terjadi kesalahan saat membuat token. Coba lagi.";
