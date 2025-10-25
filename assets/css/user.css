@@ -45,7 +45,7 @@ header {
       rgba(26, 115, 232, 0.22),
       transparent 55%
     ),
-    var(--bg);
+    var(--topbar-bg);
   color: var(--brand-text);
   box-shadow: 0 1px 0 #ffffff0a inset;
 }
