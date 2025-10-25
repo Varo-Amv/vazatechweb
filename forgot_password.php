@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $judul_email = "Reset Password • VAZATECH";
     $isi_email   = "
       Hai <b>" . htmlspecialchars($user['nama']) . "</b>,<br><br>
-      Akun kamu dengan email <b>" . htmlspecialchars($user['email']) . "</b> meminta link reset password.<br>
+      Akun kamu dengan email <b>" . htmlspecialchars($email) . "</b> meminta link reset password.<br>
       Silakan reset password kamu lewat tautan berikut:<br><br>
       <a href='{$link}' target='_blank' style='display:inline-block;padding:10px 14px;background:#1a73e8;color:#fff;border-radius:8px;text-decoration:none;'>Verifikasi Sekarang</a><br><br>
       Atau salin URL ini ke browser:<br>
