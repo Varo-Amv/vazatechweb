@@ -73,16 +73,6 @@ if (!$skip) {
 ?>
 
 <?php include("./inc/header.php"); ?>
-
-<!DOCTYPE html>
-    <!-- konten demo (hapus/ubah sesuai kebutuhan) -->
-    <main class="page">
-      <section class="hero-demo">
-        <h1 style="color: black">Selamat datang di web VAZATECH</h1>
-        <p style="color: black">Isi konten disini</p>
-      </section>
-    </main>
-
 <link rel="stylesheet" href="<?= htmlspecialchars('/assets/css/home.css') ?>">
 <!DOCTYPE html>
     <?php
@@ -321,6 +311,7 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
   }
 })();
 </script>
+
   </body>
 </html>
 <?php include("./inc/footer.php")?>
