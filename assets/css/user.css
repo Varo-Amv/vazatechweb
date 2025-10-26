@@ -217,3 +217,38 @@ header .logo span.logo {
   letter-spacing: 0.5px;
   font-size: 14px;
 }
+/* ===== Mobile: search pindah ke bawah logo (≤640px) ===== */
+@media (max-width: 640px) {
+  header {
+    /* jadikan 2 baris: baris 1 = logo & aksi, baris 2 = search */
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    height: auto; /* tidak fixed 68px */
+    padding: 8px 12px;
+    gap: 8px 10px; /* row-gap 8, col-gap 10 */
+  }
+
+  /* baris 1: logo kiri, aksi kanan (tetap) */
+  .actions {
+    justify-self: end;
+  }
+
+  /* baris 2: form search melebar penuh, di bawah logo+aksi */
+  .search {
+    grid-column: 1 / -1; /* span 3 kolom */
+    grid-row: 2;
+    padding: 0; /* hilangkan padding kiri/atas dari style lama */
+  }
+  .search-input {
+    width: 100%;
+    height: 42px;
+    font-size: 16px; /* cegah auto-zoom */
+    border-radius: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .search {
+    margin-top: 2px;
+  }
+}
+/* ====== End of Header user VAZATECH ====== */

@@ -24,7 +24,7 @@ $domain      = 'vazatech.store';
   <link rel="icon" type="image/png" sizes="32x32" href="../image/logo_nocapt.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/refund.css">
+  <link rel="stylesheet" href="../assets/css/snk.css">
 </head>
 <body>
   <div class="wrap">
