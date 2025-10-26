@@ -16,8 +16,8 @@ body {
   color: var(--text);
 }
 .wrap {
-  max-width: 1120px;
-  margin: 28px auto;
+  max-width: 1000px;
+  margin: 18px auto;
   padding: 0 16px;
 }
 
@@ -26,7 +26,7 @@ body {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  height: 220px;
+  height: 350px;
   background: #0b1024;
   box-shadow: 0 18px 40px rgba(2, 8, 23, 0.12);
 }
@@ -41,7 +41,7 @@ body {
 }
 .hero__slide img {
   width: 100%;
-  height: 220px;
+  height: 350px;
   object-fit: cover;
   display: block;
 }
@@ -51,19 +51,18 @@ body {
   bottom: 14px;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: 4px;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.75);
-  padding: 6px 10px;
+  padding: 2px 6px;
   border-radius: 999px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 .hero__dot {
-  width: 30px;
+  width: 14px;
   height: 6px;
-  border-radius: 999px;
-  background: #c7d2fe;
+  border-radius:799px;
+  background: #c7cdfe7a;
   border: 1px solid #dbeafe;
   cursor: pointer;
 }
@@ -507,7 +506,7 @@ body {
 .cards-row {
   display: grid !important;
   grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-  gap: 18px !important;
+  gap: 10px !important;
 
   /* matikan gaya carousel */
   overflow: visible !important;
