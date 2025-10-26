@@ -71,6 +71,38 @@ if (!$skip) {
   }
 }
 ?>
+<?php
+$hasSearch = isset($_GET['q']) && trim($_GET['q']) !== '';
+$results = [];
+
+if ($hasSearch) {
+  $q  = trim($_GET['q']);
+  $kw = '%'.$q.'%';
+
+  // contoh query – sesuaikan nama tabel/kolommu
+  $sql = "SELECT id, product_name, game, category, image_url, price, status, updated_at
+          FROM stocks
+          WHERE COALESCE(status,'') <> 'out'
+            AND (product_name LIKE ? OR game LIKE ? OR category LIKE ?)
+          ORDER BY updated_at DESC
+          LIMIT 50";
+
+  if (isset($pdo) && $pdo instanceof PDO) {
+    $st = $pdo->prepare($sql);
+    $st->execute([$kw,$kw,$kw]);
+    $results = $st->fetchAll(PDO::FETCH_ASSOC) ?: [];
+  } elseif (isset($koneksi) && $koneksi instanceof mysqli) {
+    if ($st = $koneksi->prepare($sql)) {
+      $st->bind_param('sss',$kw,$kw,$kw);
+      $st->execute();
+      $res = $st->get_result();
+      while ($r = $res->fetch_assoc()) { $results[] = $r; }
+      $st->close();
+    }
+  }
+}
+?>
+
 
 <?php include("./inc/header.php"); ?>
 <link rel="stylesheet" href="<?= htmlspecialchars('/assets/css/home.css') ?>">
@@ -192,6 +224,59 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
     <?php endif; ?>
 
     <!-- ====== KATEGORI GAME ====== -->
+<?php if ($hasSearch): ?>
+  <section class="section">
+    <h3 class="section-title">
+      Hasil pencarian: “<?= htmlspecialchars($_GET['q'], ENT_QUOTES, 'UTF-8') ?>”
+    </h3>
+
+    <?php if (!$results): ?>
+      <p>Tidak ada produk yang cocok.</p>
+    <?php else: ?>
+      <div class="cards-row" id="search-results">
+        <?php foreach ($results as $p): ?>
+          <article class="card" data-id="<?= (int)$p['id'] ?>">
+   <div class="card__shine"></div>
+            <div class="card__glow"></div>
+            <div class="card__content">
+              <?php if (($p['status'] ?? '') === 'in'): ?>
+                <div class="card__badge">Ready</div>
+              <?php elseif (($p['status'] ?? '') === 'low'): ?>
+                <div class="card__badge" style="background:#f59e0b">Low</div>
+              <?php else: ?>
+                <div class="card__badge" style="background:#ef4444">Out</div>
+              <?php endif; ?>
+
+              <div class="card__image">
+                <img
+                  src="<?= e($p['image_url'] ?: 'https://i.ibb.co/Kh9LHFk/hero-all.jpg') ?>"
+                  alt="<?= e($p['product_name']) ?>"
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='<?= e('https://i.ibb.co/Kh9LHFk/hero-all.jpg') ?>';"
+                >
+              </div>
+
+              <div class="card__text">
+                <p class="card__title"><?= e($p['product_name']) ?></p>
+                <p class="card__description"><?= e($p['game']) ?></p>
+              </div>
+              <div class="card__footer">
+                <div class="card__price"><?= rupiah($p['price']) ?></div>
+                <div class="card__button" title="Tambah">
+                  <svg height="16" width="16" viewBox="0 0 24 24">
+                    <path stroke-width="2" stroke="currentColor" d="M4 12H20M12 4V20" fill="currentColor"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+  </section>
+<?php endif; ?>
+
+
     <?php if (empty($categoriesToShow)): ?>
   <h3 class="section-title">PRODUK</h3>
   <div style="color:var(--muted)">Belum ada kategori/produk.</div>

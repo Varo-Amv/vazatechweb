@@ -37,15 +37,35 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
       </div>
 
       <!-- Search di tengah -->
-      <form class="search" action="#" method="get" role="search">
-        <input
-          name="q"
-          type="text"
-          class="search-input"
-          placeholder="Pencarian"
-          aria-label="Pencarian"
-        />
-      </form>
+ <form id="searchForm" class="search" action="" method="get">
+  <input
+    class="search-input"
+    type="search"
+    name="q"
+    placeholder="Cari produk / game / kategori…"
+    value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q'], ENT_QUOTES, 'UTF-8') : '' ?>"
+    aria-label="Cari produk"
+  />
+</form>
+
+<script>
+document.getElementById('searchForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const q = this.q.value.trim();
+  if (!q) return;
+
+  // Basis URL: pakai action kalau ada; jika relatif, jatuhkan ke path saat ini.
+  const base = this.getAttribute('action') || (location.origin + location.pathname);
+  const url  = new URL(base, location.origin);
+
+  // TIMPA seluruh query string → hanya ada ?q=...
+  url.search = 'q=' + encodeURIComponent(q);  // spasi → %20, bukan +
+
+  // Arahkan
+  location.href = url.toString();
+});
+</script>
+
 
       <!-- Aksi di kanan -->
       <nav class="actions">
