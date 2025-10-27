@@ -251,4 +251,21 @@ header .logo span.logo {
     margin-top: 2px;
   }
 }
-/* ====== End of Header user VAZATECH ====== */
+/* Header sticky + animasi sembunyi/tampil */
+header {
+  position: sticky; /* jika header sudah fixed, boleh dibiarkan fixed */
+  top: 0;
+  z-index: 50;
+  transition: transform 0.28s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+/* Saat disembunyikan: geser ke atas */
+header.header--hidden {
+  transform: translateY(-100%);
+}
+
+/* Opsional: beri bayangan kecil saat halaman discroll */
+body.scrolled header {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}

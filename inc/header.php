@@ -27,9 +27,7 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/user.css" />
-  </head>
-  <body>
-    <header>
+        <header>
       <!-- Logo di kiri (SESUAI BASE KAMU) -->
       <div class="logo">
         <img src="./image/logo_nocapt.png" alt="Logo" />
@@ -64,6 +62,51 @@ document.getElementById('searchForm').addEventListener('submit', function(e){
   // Arahkan
   location.href = url.toString();
 });
+</script>
+<script>
+(function () {
+  const header = document.querySelector('header');
+  if (!header) return;
+
+  let lastY = window.pageYOffset;
+  let ticking = false;
+  const DELTA = 10;           // ambang perubahan scroll (px) biar gak sensitif
+  const TOP_STICKY = 8;       // di dekat atas, header selalu tampil
+
+  // Jangan sembunyikan saat fokus di input (mis. search) → UX lebih baik
+  const isInteracting = () => document.activeElement && /input|select|textarea/i.test(document.activeElement.tagName);
+
+  function onScroll() {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Tambahkan class "scrolled" untuk efek bayangan
+    if (y > 2) document.body.classList.add('scrolled');
+    else document.body.classList.remove('scrolled');
+
+    if (Math.abs(y - lastY) <= DELTA) { lastY = y; return; }
+    if (isInteracting()) { lastY = y; return; } // jangan ganggu saat mengetik
+
+    if (y > lastY && y > TOP_STICKY) {
+      // scroll DOWN → sembunyikan
+      header.classList.add('header--hidden');
+    } else {
+      // scroll UP atau dekat top → tampilkan
+      header.classList.remove('header--hidden');
+    }
+
+    lastY = y < 0 ? 0 : y; // guard iOS bounce
+  }
+
+  // Gunakan rAF untuk performa mulus
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { onScroll(); ticking = false; });
+  }, { passive: true });
+
+  // Saat resize (alamat bar mobile berubah), pastikan state aman
+  window.addEventListener('resize', () => { header.classList.remove('header--hidden'); }, { passive: true });
+})();
 </script>
 
 
@@ -114,4 +157,7 @@ if ($loggedIn && $isAdmin): ?>
 <?php endif; ?>
       </nav>
     </header>
+  </head>
+  <body>
+
     <div class="topbar-accent" aria-hidden="true"></div>
