@@ -155,6 +155,30 @@ if (isset($_POST['masuk'])) {
 </style>
 
 <?php if($err){ echo "<div class='error'><ul class='pesan'>$err</ul></div>"; } ?>
+<?php if(!empty($err)): ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Ambil HTML error list dari PHP dengan aman
+    var html = <?php echo json_encode("<ul class='pesan'>$err</ul>", JSON_UNESCAPED_UNICODE); ?>;
+
+    // Ubah <li> jadi baris <br> agar ringkas di toast
+    var tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    var lines = Array.from(tmp.querySelectorAll('li'))
+      .map(li => li.textContent.trim())
+      .filter(Boolean);
+    var msg = lines.length ? lines.join('<br>') : tmp.textContent.trim();
+
+    // Tampilkan toast error 10 dtk close
+    if (typeof notify === 'function') {
+      notify('error', msg, { duration: 10000 });
+      // Sembunyikan fallback agar tidak dobel tampil
+      var fb = document.querySelector('.error');
+      if (fb) fb.style.display = 'none';
+    }
+  });
+</script>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,12 +186,14 @@ if (isset($_POST['masuk'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" sizes="32x32" href="./image/logo_nocapt.png" />
-    <title>Masuk · VAZATECH</title>
+    <title>Masuk 路 VAZATECH</title>
     <link rel="stylesheet" href="./assets/css/log.css" />
     <link
       href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/assets/css/notify.css">
+<script src="/assets/js/notify.js" defer></script>
   </head>
   <body>
     <div class="wrapper">

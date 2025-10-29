@@ -1,0 +1,100 @@
+/* Container */
+.ntf-container {
+  position: fixed;
+  inset-block-start: 16px;
+  inset-inline-end: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2147483647;
+}
+
+/* Base toast */
+.ntf {
+  min-width: 240px;
+  max-width: 92vw;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ntf.ntf-enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ntf.ntf-leave {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* Variants */
+.ntf.success {
+  background: #ecfdf5;
+  border: 1px solid #10b98133;
+  color: #065f46;
+}
+.ntf.error {
+  background: #fef2f2;
+  border: 1px solid #ef444433;
+  color: #7f1d1d;
+}
+
+/* Bits */
+.ntf .ntf-badge {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 999px;
+  margin-top: 6px;
+}
+.ntf.success .ntf-badge {
+  background: #10b981;
+}
+.ntf.error .ntf-badge {
+  background: #ef4444;
+}
+
+.ntf .ntf-content {
+  flex: 1;
+}
+.ntf .ntf-title {
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+.ntf .ntf-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ntf button.ntf-close {
+  all: unset;
+  cursor: pointer;
+  margin-left: 6px;
+  font-weight: 600;
+  opacity: 0.6;
+}
+.ntf button.ntf-close:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* Small screens: move to bottom for thumb reach (opsional, bisa dihapus) */
+@media (max-width: 640px) {
+  .ntf-container {
+    inset-block-start: 16px; /* di atas */
+    inset-block-end: auto;
+    inset-inline-end: 16px; /* kanan */
+    inset-inline-start: auto;
+    align-items: flex-end;
+  }
+  .ntf {
+    max-width: min(520px, 100%);
+  }
+}

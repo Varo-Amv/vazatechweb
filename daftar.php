@@ -27,6 +27,11 @@ $no_telp    = "";
 $err        = "";
 $sukses     = "";
 
+function add_err(&$err, $msg){
+  // pastikan selalu berformat <li>...</li>
+  $err .= "<li>".htmlspecialchars($msg, ENT_QUOTES, 'UTF-8')."</li>";
+}
+
 if(isset($_POST['simpan'])){
   $email                 = $_POST['email'];
   $nama                  = $_POST['nama'];
@@ -35,33 +40,36 @@ if(isset($_POST['simpan'])){
   $password_confirmation = $_POST['password_confirmation'];
 
   if($email == '' or $nama == '' or $no_telp == '' or $password == '' or $password_confirmation == ''){
-    $err .= "<li>Silahkan masukkan semua isian.</li>";
+    add_err($err, "Silahkan masukkan semua isian.");
   }
 
-  //cek di bagian db, apakah email sudah ada atau belum
   if($email !=''){
-    $sql1   = "select email from users where email = '$email'";
-    $q1     = mysqli_query($koneksi,$sql1);
-    $n1     = mysqli_num_rows($q1);
-    if($n1 > 0){
-      $err .= "<li>Email yang kamu masukkan sudah terdaftar.</li>";
+    // (opsional) gunakan prepared statement agar aman dari SQL injection
+    $stmt = $koneksi->prepare("SELECT email FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    if($stmt->num_rows > 0){
+      add_err($err, "Email yang kamu masukkan sudah terdaftar.");
     }
+    $stmt->close();
   }
-if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $err .= 'Email tidak valid.';
-}
+
+  if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    add_err($err, "Email tidak valid.");
+  }
   if($password != $password_confirmation){
-    $err .= "<li>Password dan Konfirmasi Password tidak sesuai!</li>";
+    add_err($err, "Password dan Konfirmasi Password tidak sesuai!");
   }
   if(strlen($password) < 8) {
-    $err .= "Password harus lebih dari 8 karakter.";
+    add_err($err, "Password harus lebih dari 8 karakter.");
   }
-if ($no_telp === '' || !ctype_digit($no_telp)) {
-    $err .= 'Nomor telepon harus berisi angka saja.';
-}
-if (empty($_POST['agree'])) {
-  $err .= "<li>Anda harus menyetujui Syarat & Ketentuan.</li>";
-}
+  if ($no_telp === '' || !ctype_digit($no_telp)) {
+    add_err($err, "Nomor telepon harus berisi angka saja.");
+  }
+  if (empty($_POST['agree'])) {
+    add_err($err, "Anda harus menyetujui Syarat & Ketentuan.");
+  }
 
   if(empty($err)){
     $status = bin2hex(random_bytes(16));
@@ -101,8 +109,36 @@ if (empty($_POST['agree'])) {
 }
 }
 ?>
-<?php if($err){echo "<div class='error'><ul>$err</ul></div>";} ?>
-<?php if($sukses) {echo "<div class='sukses'>$sukses</div>";} ?>
+<link rel="stylesheet" href="/assets/css/notify.css">
+<script src="/assets/js/notify.js" defer></script>
+
+<?php if($err){echo "<div id='php-error-block' class='error'><ul>$err</ul></div>";} ?>
+<?php if($sukses){echo "<div id='php-success-block' class='sukses'>".htmlspecialchars($sukses, ENT_QUOTES, 'UTF-8')."</div>";} ?>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ERROR → kumpulkan <li> lalu jadikan <br>
+    <?php if(!empty($err)): ?>
+      (function(){
+        var html = <?php echo json_encode("<ul>$err</ul>", JSON_UNESCAPED_UNICODE); ?>;
+        var tmp = document.createElement('div'); tmp.innerHTML = html;
+        var lines = Array.from(tmp.querySelectorAll('li')).map(li => li.textContent.trim()).filter(Boolean);
+        var msg = lines.length ? lines.join('<br>') : tmp.textContent.trim();
+        notify('error', msg, { duration: 10000 });
+        var fb = document.getElementById('php-error-block'); if (fb) fb.style.display = 'none';
+      })();
+    <?php endif; ?>
+
+    // SUKSES → tampilkan 10 detik
+    <?php if(!empty($sukses)): ?>
+      (function(){
+        var msg = <?php echo json_encode($sukses, JSON_UNESCAPED_UNICODE); ?>;
+        notify('success', msg, { duration: 10000 });
+        var fb = document.getElementById('php-success-block'); if (fb) fb.style.display = 'none';
+      })();
+    <?php endif; ?>
+  });
+</script>
 <!DOCTYPE html>
 <html lang="id">
   <head>
