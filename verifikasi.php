@@ -65,21 +65,10 @@ if ($sukses && !headers_sent()) {
 <?php endif; ?>
 
 <?php if($sukses): ?>
-  <div class="vz-alert vz-alert--center" role="alert" aria-live="polite">
-    <span class="vz-alert__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 6L9 17l-5-5"></path>
-      </svg>
-    </span>
-    <span class="vz-alert__text"><?= htmlspecialchars($sukses, ENT_QUOTES, 'UTF-8'); ?></span>
-    <span class="vz-alert__spacer"></span>
-    <a href="<?= htmlspecialchars($loginUrl) ?>" class="vz-btn vz-btn--light">Login</a>
-    <button class="vz-alert__close" onclick="this.parentElement.remove()" aria-label="Tutup">&times;</button>
-  </div>
+<?= htmlspecialchars($sukses, ENT_QUOTES, 'UTF-8'); ?>
 
   <!-- Fallback JS auto-redirect 3 detik -->
   <script>
-    setTimeout(function(){ location.href = <?= json_encode($loginUrl) ?>; }, 3000);
+    setTimeout(function(){ location.href = <?= json_encode($loginUrl) ?>; }, 2000);
   </script>
 <?php endif; ?>
