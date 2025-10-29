@@ -112,102 +112,78 @@ if (empty($_POST['agree'])) {
     <link rel="icon" type="image/png" sizes="32x32" href="./image/logo_nocapt.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+        <link
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./assets/css/login.css" />
+    <link rel="stylesheet" href="./assets/css/log.css" />
     <style>
+      body {
+  margin: 0;
+  padding: 0;
+  background: #06011cff;
+}
       .auth-card.outlined {
         border: 3px solid #2e6bff;
       }
       .btn.block {
         width: 100%;
       }
+      .link.strong {
+  font-weight: 700;
+  color: #2563eb;
+}
+.wrapper {
+    width: min(96vw, 520px);
+    padding: 28px 30px 26px;
+}
+.wrapper .input-box {
+    margin: 8px 0;
+    border-radius: 15px;
+}
+@media (max-width: 680px) {
+  .wrapper .input-box {
+    margin: 18px 0;
+  }
+}
     </style>
   </head>
   <body>
-    <div class="auth-wrap">
-      <div class="auth-card outlined">
-        <div class="brand">
-          <img
-            src="./image/logo_nocapt.png"
-            alt="VAZATECH"
-            class="brand-logo"
-          />
-          <span class="logo">V A Z A T E C H</span>
+<div class="wrapper">
+      <form action="#" class="" method="post" novalidate>
+        <h1>Daftar</h1>
+        <div class="input-box">
+          <input type="name" name="nama" placeholder="Nama" value="<?php echo $nama?>" required />
+          <i class="bx bxs-user"></i>
         </div>
-
-        <h1 class="title">DAFTAR</h1>
-
-        <form class="auth-form" action="#" method="post" novalidate>
-          <label class="field">
-            <input
-              type="name"
-              name="nama"
-              class="input"
-              placeholder="Nama"
-              value="<?php echo $nama?>"
-              required
-            />
-          </label>
-          <label class="field">
-            <input
-              type="email"
-              name="email"
-              class="input"
-              placeholder="Email"
-              value="<?php echo $email?>"
-              required
-            />
-          </label>
-
-          <label class="field">
-            <input
-              type="tel"
-              name="no_telp"
-              class="input"
-              placeholder="Nomor telepon"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-              value="<?php echo $no_telp?>"
-              required
-            />
-          </label>
-
-          <label class="field">
-            <input
-              type="password"
-              name="password"
-              class="input"
-              placeholder="Password"
-              required
-              minlength="8"
-            />
-          </label>
-
-          <label class="field">
-            <input
-              type="password"
-              name="password_confirmation"
-              class="input"
-              placeholder="Confirm password"
-              required
-              minlength="8"
-            />
-          </label>
-<label class="field" style="display:flex; gap:8px; align-items:flex-start">
+        <div class="input-box">
+          <input type="email" name="email" placeholder="Email" value="<?php echo $email?>" required />
+          <i class="bx bxs-at"></i>
+        </div>
+        <div class="input-box">
+          <input type="tel" name="no_telp" placeholder="Nomor Telepon" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" value="<?php echo $no_telp?>" required />
+          <i class="bx bxs-phone"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" placeholder="Password" required minlength="8" />
+          <i class="bx bxs-lock"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required minlength="8" />
+          <i class="bx bxs-lock"></i>
+        </div>
+<label class="field" style="display:flex; gap:8px; align-items:flex-start ; margin-bottom:15px;">
   <input type="checkbox" name="agree" required style="margin-top:5px">
   <span>Saya telah membaca dan menyetujui <a href="/snk" target="_blank" class="link strong">Syarat & Ketentuan</a> dan
     <a href="/kebijakan-privasi" target="_blank" class="link strong">Kebijakan Privasi</a>.</span>
 </label>
 
-          <input class="btn primary block" type="submit" value="Daftar" name="simpan">
-          <p class="foot">
-            Sudah punya akun?
-            <a href="./login" class="link strong">Masuk Disini</a>
-          </p>
-        </form>
-      </div>
+        <input class="btn" type="submit" value="Daftar" name="simpan">
+
+        <div class="register-link">
+          <p>Sudah punya akun? <a href="login">Masuk</a></p>
+        </div>
+      </form>
     </div>
   </body>
 </html>

@@ -176,7 +176,7 @@ if (isset($_POST['masuk'])) {
         <h1>Masuk</h1>
         <div class="input-box">
           <input type="email" name="email" placeholder="Email" required />
-          <i class="bx bxs-user"></i>
+          <i class="bx bxs-at"></i>
         </div>
         <div class="input-box">
           <input type="password" name="password" placeholder="Password" required />
