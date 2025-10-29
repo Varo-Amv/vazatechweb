@@ -1,7 +1,39 @@
 <?php
  include("koneksi.php");
  include("env.php");
- 
+ // ==== REMEMBER ME HELPERS ====
+
+// random string aman
+function random_str(int $len = 32): string {
+  return bin2hex(random_bytes($len/2)); // len harus genap
+}
+
+// set cookie aman (HTTPS disarankan)
+function set_remember_cookie(string $selector, string $validator, DateTime $exp): void {
+  $cookie = $selector . ':' . $validator;
+  setcookie(
+    'remember',           // nama cookie
+    $cookie,
+    [
+      'expires'  => $exp->getTimestamp(),
+      'path'     => '/',          // seluruh situs
+      'domain'   => '',           // isi jika pakai subdomain tertentu
+      'secure'   => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on', // true di HTTPS
+      'httponly' => true,         // tidak bisa diakses JS
+      'samesite' => 'Lax',        // tetap login saat kembali dari halaman sendiri
+    ]
+  );
+}
+
+function clear_remember_cookie(): void {
+  if (!empty($_COOKIE['remember'])) {
+    setcookie('remember', '', [
+      'expires' => time() - 3600, 'path' => '/', 'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on',
+      'httponly' => true, 'samesite' => 'Lax'
+    ]);
+    unset($_COOKIE['remember']);
+  }
+}
 /**
  * Upload file gambar ke ImgBB dan mengembalikan URL publiknya.
  * @param string $tmpPath   path file sementara (mis. $_FILES['avatar']['tmp_name'])

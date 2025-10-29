@@ -6,6 +6,7 @@
 require __DIR__ . '/inc/session.php';
 // Jika kamu butuh helper url_dasar():
 require __DIR__ . '/inc/fungsi.php';
+require __DIR__ . '/inc/auth.php';
 
 // (opsional) mulai output buffering untuk mencegah "headers already sent"
 if (!ob_get_level()) { ob_start(); }
@@ -26,6 +27,7 @@ if (ini_get("session.use_cookies")) {
 
 // Hancurkan sesi
 session_destroy();
+remember_logout($koneksi);
 
 // Regenerasi ID sesi baru yang bersih (opsional, untuk hardening)
 session_start();

@@ -2,8 +2,8 @@
 include_once("inc/koneksi.php");
 include_once("inc/fungsi.php"); 
 require_once __DIR__ . '/inc/auth.php';
-redirect_if_logged_in( (function_exists('url') ? url() : '.') . 'index.php' );
-// ==== SESSION aman ====
+
+// ==== SESSION aman (SEBELUM apa pun yang butuh session) ====
 if (session_status() === PHP_SESSION_NONE) {
   $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
   session_set_cookie_params([
@@ -16,6 +16,15 @@ if (session_status() === PHP_SESSION_NONE) {
   ]);
   session_start();
 }
+
+// ==== AUTO-LOGIN dari cookie (SEBELUM redirect check) ====
+// gunakan kunci yang konsisten: $_SESSION['user']['id']
+if (empty($_SESSION['user']['id'])) {
+  remember_login_from_cookie($koneksi); // jika valid akan set $_SESSION['user']
+}
+
+// ==== Redirect jika sudah login ====
+redirect_if_logged_in( (function_exists('url') ? url() : '.') . 'index.php' );
 
 // ==== CSRF helper ====
 if (empty($_SESSION['csrf'])) {
@@ -104,6 +113,11 @@ if (isset($_POST['masuk'])) {
 
         if (!$ok) {
           $err .= "<li>Password tidak sesuai.</li>";
+        } else {
+          // ingat saya (remember me)
+          if (!empty($_POST['remember'])) {
+            remember_create($koneksi, (int)$user['id'], 30); // 30 hari
+          }
         }
       }
     }
@@ -143,119 +157,42 @@ if (isset($_POST['masuk'])) {
 <?php if($err){ echo "<div class='error'><ul class='pesan'>$err</ul></div>"; } ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" sizes="32x32" href="./image/logo_nocapt.png" />
     <title>Masuk · VAZATECH</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./assets/css/log.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./assets/css/login.css" />
-    <style>
-      .auth-card.outlined {
-        border: 3px solid #2e6bff;
-      }
-      .btn.block {
-        width: 100%;
-      }
-    </style>
   </head>
   <body>
-    <div class="auth-wrap">
-      <div class="auth-card outlined">
-        <div class="brand">
-          <img
-            src="./image/logo_nocapt.png"
-            alt="VAZATECH"
-            class="brand-logo"
-          />
-          <span class="logo">V A Z A T E C H</span>
+    <div class="wrapper">
+      <form action="#" class="" method="post" novalidate>
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf'] ?? ''?>">
+        <h1>Masuk</h1>
+        <div class="input-box">
+          <input type="email" name="email" placeholder="Email" required />
+          <i class="bx bxs-user"></i>
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" placeholder="Password" required />
+          <i class="bx bxs-lock"></i>
+        </div>
+        <div class="remember-forgot">
+          <label><input type="checkbox" name="remember" /> Ingat Saya</label>
+          <a href="forgot_password">Lupa Password?</a>
         </div>
 
-        <h1 class="title">MASUK</h1>
+        <input type="submit" class="btn" value="Masuk" name="masuk">
 
-        <form class="auth-form" action="#" method="post" novalidate>
-  <input type="hidden" name="csrf" value="<?=$_SESSION['csrf'] ?? ''?>">
-  <!-- ... input email & password ... -->
-          <label class="field">
-            <input
-              type="email"
-              name="email"
-              class="input"
-              placeholder="Email"
-              required
-            />
-          </label>
-          <label class="field">
-            <input
-              type="password"
-              name="password"
-              class="input"
-              placeholder="Password"
-              required
-            />
-            <button
-              type="button"
-              class="toggle"
-              aria-label="Tampilkan password"
-              onclick="togglePwd(this)"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12Z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-            </button>
-          </label>
-
-          <div class="row between">
-            <a href="forgot_password" class="link small">Lupa Password?</a>
-          </div>
-
-          <input class="btn primary" type="submit" value="Masuk" name="masuk">
-
-          <div class="divider"><span>Atau masuk dengan</span></div>
-
-          <div class="oauth">
-            <button class="btn ghost">
-              <img src="./image/google.png" height="30px" width="30px" />
-            </button>
-            <button class="btn ghost">
-              <img src="./image/facebook.png" height="35px" width="35px" />
-            </button>
-          </div>
-
-          <p class="foot">
-            Belum punya akun?
-            <a href="./daftar" class="link strong">Buat Disini</a>
-          </p>
-        </form>
-      </div>
+        <div class="register-link">
+          <p>Belum punya akun? <a href="daftar">Daftar</a></p>
+        </div>
+      </form>
     </div>
-
-    <script>
-      function togglePwd(btn) {
-        const input = btn.parentElement.querySelector("input");
-        const is = input.type === "password";
-        input.type = is ? "text" : "password";
-        btn.setAttribute(
-          "aria-label",
-          is ? "Sembunyikan password" : "Tampilkan password"
-        );
-      }
-    </script>
   </body>
 </html>
