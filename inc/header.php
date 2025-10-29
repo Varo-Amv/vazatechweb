@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include_once("inc/koneksi.php");
+include_once("koneksi.php");
 $sql = "SELECT * FROM users WHERE email = ?";
 $stmt = $koneksi->prepare($sql);
 $stmt->bind_param("s", $_SESSION['user']['email']);
@@ -26,11 +26,11 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
       href="https://fonts.googleapis.com/css2?family=Lexend+Tera:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./assets/css/user.css" />
+    <link rel="stylesheet" href="../assets/css/user.css" />
         <header>
       <!-- Logo di kiri (SESUAI BASE KAMU) -->
       <div class="logo">
-        <img src="./image/logo_nocapt.png" alt="Logo" />
+        <img src="../image/logo_nocapt.png" alt="Logo" />
         <span class="logo">V A Z A T E C H</span>
       </div>
 

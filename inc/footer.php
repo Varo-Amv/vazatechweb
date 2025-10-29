@@ -30,7 +30,7 @@ if (!defined('VZ_FOOTER_CSS')):
   @media (max-width: 980px){ .vz-footer__grid{grid-template-columns:1fr 1fr} }
   @media (max-width: 560px){ .vz-footer__grid{grid-template-columns:1fr} .vz-footer .container{padding:20px 14px} }
 </style>
-<link rel="stylesheet" href="./assets/css/user.css" />
+<link rel="stylesheet" href="../assets/css/user.css" />
 <?php endif; ?>
 
 <footer class="vz-footer">
@@ -39,7 +39,7 @@ if (!defined('VZ_FOOTER_CSS')):
       <!-- Brand -->
       <div class="vz-col">
         <div class="logo">
-          <img src="./image/logo_nocapt.png" alt="VAZATECH">
+          <img src="../image/logo_nocapt.png" alt="VAZATECH">
           <span class="name">VAZATECH</span>
         </div>
       </div>
@@ -69,14 +69,14 @@ if (!defined('VZ_FOOTER_CSS')):
       <div class="vz-col">
         <h4>Metode Pembayaran</h4>
         <div class="vz-pay">
-          <img src="./image/payments/qris.png" alt="QRIS">
-          <img src="./image/payments/bca.png" alt="BCA">
-          <img src="./image/payments/dana.png" alt="DANA">
-          <img src="./image/payments/sopay.png" alt="ShopeePay">
-          <img src="./image/payments/gopay.png" alt="GoPay">
-          <img src="./image/payments/jago.png" alt="Jago">
-          <img src="./image/payments/ovo.png" alt="OVO">
-          <img src="./image/payments/seabank.png" alt="SeaBank">
+          <img src="../image/payments/qris.png" alt="QRIS">
+          <img src="../image/payments/bca.png" alt="BCA">
+          <img src="../image/payments/dana.png" alt="DANA">
+          <img src="../image/payments/sopay.png" alt="ShopeePay">
+          <img src="../image/payments/gopay.png" alt="GoPay">
+          <img src="../image/payments/jago.png" alt="Jago">
+          <img src="../image/payments/ovo.png" alt="OVO">
+          <img src="../image/payments/seabank.png" alt="SeaBank">
         </div>
       </div>
 
