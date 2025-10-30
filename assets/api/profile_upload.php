@@ -35,9 +35,6 @@ $remoteUrl = $res['url']; // URL gambar publik
 
 // (opsional) hapus avatar lama kalau URL lama bukan default
 $old = $me['avatar_path'] ?? '';
-if ($old && stripos($old, 'uploads/avatars/') === 0) {
-  @unlink($ROOT . '/' . $old); // hanya jika dulu simpan lokal
-}
 
 // Update DB dengan URL
 $upd = $koneksi->prepare("UPDATE users SET avatar_path=? WHERE id=?");

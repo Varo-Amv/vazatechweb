@@ -28,7 +28,6 @@ C:\xampp\htdocs\topupweb
 ├─ daftar.php
 ├─ forgot_password.php
 ├─ guard.txt
-├─ index.html
 ├─ index.php
 ├─ login.php
 ├─ logout.php
@@ -38,8 +37,8 @@ C:\xampp\htdocs\topupweb
 ├─ reset_password.php
 ├─ test.php
 ├─ verifikasi.php
-├─ .git/
 ├─ admin/
+│  ├─ banners.php
 │  ├─ blog-create.php
 │  ├─ blog-edit.php
 │  ├─ blog-list.php
@@ -49,6 +48,7 @@ C:\xampp\htdocs\topupweb
 │  └─ users.php
 ├─ assets/
 │  ├─ api/
+│  │  ├─ banners.php
 │  │  ├─ orders.php
 │  │  ├─ profile_upload.php
 │  │  ├─ revenue_series.php
@@ -56,12 +56,24 @@ C:\xampp\htdocs\topupweb
 │  │  ├─ stocks_kpi.php
 │  │  └─ users.php
 │  ├─ css/
+│  │  ├─ 404.css
+│  │  ├─ blog-create.css
+│  │  ├─ blog-edit.css
+│  │  ├─ blog-list.css
+│  │  ├─ blog.css
+│  │  ├─ kbp.css
+│  │  ├─ log.css
+│  │  ├─ notify.css
+│  │  ├─ promo.css
+│  │  ├─ snk.css
+│  │  ├─ verifikasi.css
 │  │  ├─ admin.css
 │  │  ├─ home.css
 │  │  ├─ login.css
 │  │  ├─ profile.css
 │  │  └─ user.css
 │  └─ js/
+│     ├─ notify.js
 │     ├─ chats.js
 │     └─ revenue_chart.js
 ├─ blog/
@@ -85,21 +97,25 @@ C:\xampp\htdocs\topupweb
 │  ├─ google.png
 │  ├─ home_black.png
 │  ├─ instagram.png
+│  ├─ loginbg.jpg
+│  ├─ loging.jpg
 │  ├─ logo_nocapt.png
+│  ├─ p.jpg
 │  ├─ profile_black.png
 │  ├─ profile_white.png
 │  ├─ tiktok.png
 │  └─ whatsapp.png
 ├─ inc/
 │  ├─ auth.php
+│  ├─ env.php
 │  ├─ footer.php
 │  ├─ fungsi.php
 │  ├─ hdradmin.php
 │  ├─ header.php
 │  ├─ koneksi.php
 │  └─ session.php
-├─ uploads/
 ├─ user/
+│  ├─ promo.php
 │  ├─ refund-policy.php
 │  ├─ blog.php
 │  ├─ index.php
@@ -121,6 +137,7 @@ C:\xampp\htdocs\topupweb
    │  └─ platform_check.php
    └─ phpmailer/
       └─ phpmailer/
+
 ```
 
 ## Konfigurasi & Menjalankan
