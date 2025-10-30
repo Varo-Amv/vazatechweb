@@ -75,7 +75,10 @@ if(isset($_POST['simpan'])){
     $status = bin2hex(random_bytes(16));
 
     // Kirim email verifikasi
-    $judul_email = "Verifikasi Email • VAZATECH";
+    $emailhost = "mail.vazatech.store";
+    $emailsender = "no-reply@vazatech.store";
+    $sendername = "VAZATECH";
+    $judul_email = "Verifikasi Akun";
     $verifLink   = url("/verifikasi.php?email=" . urlencode($email) . "&kode=" . urlencode($status));
     $isi_email   = "
       Hai <b>" . htmlspecialchars($nama) . "</b>,<br><br>
@@ -83,12 +86,12 @@ if(isset($_POST['simpan'])){
       Silakan verifikasi email kamu lewat tautan berikut:<br><br>
       <a href='{$verifLink}' target='_blank' style='display:inline-block;padding:10px 14px;background:#1a73e8;color:#fff;border-radius:8px;text-decoration:none;'>Verifikasi Sekarang</a><br><br>
       Atau salin URL ini ke browser:<br>
-      {$verifLink}<br>
-      Abaikan email ini jika kamu tidak melakukan pendaftaran.<br><br>
+      {$verifLink}<br><br>
+      <a style='color: #f90000ff'>Peringatan:<br>Tidak ada yang dapat menyelesaikan proses ini tanpa Mail ini. Jika ini bukan Anda, mohon abaikan Mail ini untuk mengamankan akun Anda.</a><br><br>
       Terima kasih,<br>VAZATECH
     ";
 
-    $send = kirim_email($email, $nama, $isi_email);
+    $send = kirim_email($emailhost,$emailsender, $sendername, $judul_email, $email, $user['nama'], $isi_email);
     if (!$send['ok']) {
       // boleh lanjut simpan user, tapi beri tahu bahwa email gagal terkirim
        $err .= "<li>Gagal mengirim email verifikasi: ".htmlspecialchars($send['err'])."</li>";

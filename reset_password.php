@@ -8,8 +8,10 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 ini_set('error_log', __DIR__ . '/php-error.log');
 
+$loginUrl = url('login');
+
 $err = "";
-$msg = "";
+$sukses = "";
 
 $token = $_GET['token'] ?? '';
 $email = $_GET['email'] ?? '';
@@ -59,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $up2->close();
 
       if ($ok1) {
-        $msg = "Password berhasil diubah. Silakan masuk kembali.";
+        $sukses = "Password berhasil diubah. Mengalihkan anda ke halaman login...";
       } else {
         $err = "Gagal memperbarui password. Coba lagi.";
       }
@@ -67,6 +69,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 ?>
+<?php if($err){echo "<div id='php-error-block' class='error'><ul>$err</ul></div>";} ?>
+<?php if($sukses){echo "<div id='php-success-block' class='sukses'>".htmlspecialchars($sukses, ENT_QUOTES, 'UTF-8')."</div>";} ?>
+<?php if (!empty($sukses)): ?>
+<script>
+  // Redirect ke halaman login setelah 2 detik
+  setTimeout(function () {
+    location.href = <?= json_encode($loginUrl) ?>;
+  }, 2000);
+</script>
+<noscript>
+  <!-- Fallback bila JS nonaktif -->
+  <meta http-equiv="refresh" content="2;url=<?= htmlspecialchars($loginUrl, ENT_QUOTES) ?>">
+</noscript>
+<?php endif; ?>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ERROR → kumpulkan <li> lalu jadikan <br>
+    <?php if(!empty($err)): ?>
+      (function(){
+        var html = <?php echo json_encode("<ul>$err</ul>", JSON_UNESCAPED_UNICODE); ?>;
+        var tmp = document.createElement('div'); tmp.innerHTML = html;
+        var lines = Array.from(tmp.querySelectorAll('li')).map(li => li.textContent.trim()).filter(Boolean);
+        var msg = lines.length ? lines.join('<br>') : tmp.textContent.trim();
+        notify('error', msg, { duration: 5000 });
+        var fb = document.getElementById('php-error-block'); if (fb) fb.style.display = 'none';
+      })();
+    <?php endif; ?>
+
+    // SUKSES → tampilkan 10 detik
+    <?php if(!empty($sukses)): ?>
+      (function(){
+        var msg = <?php echo json_encode($sukses, JSON_UNESCAPED_UNICODE); ?>;
+        notify('success', msg, { duration: 5000 });
+        var fb = document.getElementById('php-success-block'); if (fb) fb.style.display = 'none';
+      })();
+    <?php endif; ?>
+  });
+</script>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -75,49 +116,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="icon" type="image/png" sizes="32x32" href="./image/logo_nocapt.png" />
   <title>Reset Password · VAZATECH</title>
   <link rel="stylesheet" href="./assets/css/login.css" />
-  <style>
-    .auth-card.outlined{ border:3px solid #2e6bff; }
-    .alert { padding:12px 14px; border-radius:10px; margin-top:10px; }
-    .alert.ok { background:#0b5; color:#fff; }
-    .alert.err{ background:#d33; color:#fff; }
-    .btn.block{ width:100%; }
-  </style>
-</head>
-<body>
-  <div class="auth-wrap">
-    <div class="auth-card outlined">
-      <div class="brand">
-        <img src="./image/logo_nocapt.png" alt="VAZATECH" class="brand-logo" />
-        <span class="logo">V A Z A T E C H</span>
-      </div>
+  <link rel="stylesheet" href="./assets/css/log.css" />
+    <link
+      href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/notify.css">
+<script src="/assets/js/notify.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form action="#" class="" method="post" novalidate>
+        <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
+        <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
+        <h1>Reset Password</h1>
+        <div class="input-box">
+          <input type="password" name="password" placeholder="Password Baru" required />
+        </div>
+        <div class="input-box">
+          <input type="password" name="password2" placeholder="Konfirmasi Password" required />
+        </div>
 
-      <h1 class="title">RESET PASSWORD</h1>
+        <button class="btn" type="submit">Ubah Password</button>
 
-      <?php if ($msg): ?>
-        <div class="alert ok"><?= $msg ?></div>
-        <p class="foot"><a href="./login" class="link strong">Ke halaman Masuk</a></p>
-      <?php else: ?>
-        <?php if ($err): ?><div class="alert err"><?= $err ?></div><?php endif; ?>
-
-        <form class="auth-form" method="post" novalidate>
-          <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
-          <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
-
-          <label class="field">
-            <input type="password" name="password" class="input" placeholder="Password baru" required />
-          </label>
-          <label class="field">
-            <input type="password" name="password2" class="input" placeholder="Ulangi password baru" required />
-          </label>
-
-          <button class="btn primary block" type="submit">Ubah Password</button>
-        </form>
-
-        <p class="foot">
-          Kembali ke <a class="link strong" href="./login">Masuk</a>
-        </p>
-      <?php endif; ?>
+        <div class="register-link">
+          <p>Kembali ke <a href="daftar">Masuk</a></p>
+        </div>
+      </form>
     </div>
-  </div>
 </body>
 </html>

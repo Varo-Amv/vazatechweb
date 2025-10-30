@@ -9,7 +9,7 @@ ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 ini_set('error_log', __DIR__ . '/php-error.log');
 
-$msg = "";
+$sukses = "";
 $err = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -51,25 +51,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($ok) {
         // susun reset link
         // SESUAIKAN BASE PATH kamu (contoh /topupweb/)
+        $emailhost = "mail.vazatech.store";
+        $emailsender = "no-reply@vazatech.store";
+        $sendername = "VAZATECH";
         $base  = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
         $host  = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
         $link  = $host . $base . "/reset_password.php?token=" . urlencode($rawToken) . "&email=" . urlencode($email);
 
         // kirim email (sederhana). Di lokal/XAMPP mungkin tidak terkirim—tampilkan link-nya di layar juga.
-        $judul_email = "Reset Password • VAZATECH";
+        $judul_email = "Reset Password";
     $isi_email   = "
       Hai <b>" . htmlspecialchars($user['nama']) . "</b>,<br><br>
-      Akun kamu dengan email <b>" . htmlspecialchars($email) . "</b> meminta link reset password.<br>
-      Silakan reset password kamu lewat tautan berikut:<br><br>
+      Seseorang mencoba untuk mengganti password. Jika orang tersebut adalah Anda, silakan gunakan link verifikasi di bawah untuk mengonfirmasi identitas Anda. Link verifikasi ini berlaku selama 1 Jam.<br><br>
       <a href='{$link}' target='_blank' style='display:inline-block;padding:10px 14px;background:#1a73e8;color:#fff;border-radius:8px;text-decoration:none;'>Verifikasi Sekarang</a><br><br>
       Atau salin URL ini ke browser:<br>
-      {$link}<br>
-      Abaikan email ini jika kamu tidak melakukan reset password.<br><br>
+      {$link}<br><br>
+      <a style='color: #f90000ff'>Peringatan:<br>Tidak ada yang dapat menyelesaikan proses ini tanpa Mail ini. Jika ini bukan Anda, mohon abaikan Mail ini untuk mengamankan akun Anda.</a><br><br>
       Terima kasih,<br>VAZATECH
     ";
 
-    kirim_email($email, $user['nama'], $isi_email);
-        $msg = "Link reset password berhasil dikirim. Silahkan cek email kamu untuk mengganti password. (Link berlaku hingga 1 jam)<br/>";
+    kirim_email($emailhost,$emailsender, $sendername, $judul_email, $email, $user['nama'], $isi_email);
+        $sukses = "Link reset password berhasil dikirim. Silahkan cek email kamu untuk mengganti password. (Link berlaku hingga 1 jam)<br/>";
       } else {
         $err = "Terjadi kesalahan saat membuat token. Coba lagi.";
       }
@@ -77,6 +79,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 ?>
+<?php if($err){echo "<div id='php-error-block' class='error'><ul>$err</ul></div>";} ?>
+<?php if($sukses){echo "<div id='php-success-block' class='sukses'>".htmlspecialchars($sukses, ENT_QUOTES, 'UTF-8')."</div>";} ?>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // ERROR → kumpulkan <li> lalu jadikan <br>
+    <?php if(!empty($err)): ?>
+      (function(){
+        var html = <?php echo json_encode("<ul>$err</ul>", JSON_UNESCAPED_UNICODE); ?>;
+        var tmp = document.createElement('div'); tmp.innerHTML = html;
+        var lines = Array.from(tmp.querySelectorAll('li')).map(li => li.textContent.trim()).filter(Boolean);
+        var msg = lines.length ? lines.join('<br>') : tmp.textContent.trim();
+        notify('error', msg, { duration: 10000 });
+        var fb = document.getElementById('php-error-block'); if (fb) fb.style.display = 'none';
+      })();
+    <?php endif; ?>
+
+    // SUKSES → tampilkan 10 detik
+    <?php if(!empty($sukses)): ?>
+      (function(){
+        var msg = <?php echo json_encode($sukses, JSON_UNESCAPED_UNICODE); ?>;
+        notify('success', msg, { duration: 10000 });
+        var fb = document.getElementById('php-success-block'); if (fb) fb.style.display = 'none';
+      })();
+    <?php endif; ?>
+  });
+</script>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -84,45 +113,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lupa Password · VAZATECH</title>
   <link rel="icon" type="image/png" sizes="32x32" href="./image/logo_nocapt.png" />
-  <link rel="stylesheet" href="./assets/css/login.css" />
-  <style>
-    .auth-card.outlined{ border:3px solid #2e6bff; }
-    .alert { padding:12px 14px; border-radius:10px; margin-top:10px; }
-    .alert.ok { background:#0b5; color:#fff; }
-    .alert.err{ background:#d33; color:#fff; }
-    .btn.block{ width:100%; }
-  </style>
+  <link rel="stylesheet" href="./assets/css/log.css" />
+  <link rel="stylesheet" href="/assets/css/notify.css">
+  <script src="/assets/js/notify.js" defer></script>
 </head>
 <body>
-  <div class="auth-wrap">
-    <div class="auth-card outlined">
-      <div class="brand">
-        <img src="./image/logo_nocapt.png" alt="VAZATECH" class="brand-logo" />
-        <span class="logo">V A Z A T E C H</span>
-      </div>
+      <div class="wrapper">
+      <form action="#" class="" method="post" novalidate>
+        <input type="hidden" name="csrf" value="<?=$_SESSION['csrf'] ?? ''?>">
+        <h1>Lupa Password</h1>
+        <p>Masukkan email Anda untuk meminta link reset password.</p>
+        <div class="input-box">
+          <input type="email" name="email" placeholder="Email" required />
+          <i class="bx bxs-at"></i>
+        </div>
 
-      <h1 class="title">LUPA PASSWORD</h1>
-      <p class="desc">Masukkan email akun kamu. Kami akan mengirimkan link untuk mengganti password.</p>
+            <button class="btn" type="submit">Kirim Link Reset</button>
 
-      <?php if ($msg): ?><div><?= $msg ?></div><?php endif; ?>
-      <?php if ($err): ?><div class="alert err"><?= $err ?></div><?php endif; ?>
-
-      <form class="auth-form" method="post" novalidate>
-        <label class="field">
-          <input type="email" name="email" class="input" placeholder="Email" required />
-        </label>
-        <button class="btn primary block" type="submit">Kirim Link Reset</button>
+        <div class="register-link">
+          <p>Belum punya akun? <a href="daftar">Daftar</a></p>
+        </div>
       </form>
-
-      <p class="foot">
-        Kembali ke <a class="link strong" href="./login">Masuk</a>
-      </p>
     </div>
-  </div>
 </body>
-<script>
-  function PwRes(){
-    window.location.href = $link;
-  }
-</script>
 </html>

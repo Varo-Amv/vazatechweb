@@ -186,7 +186,7 @@ if (isset($_POST['masuk'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" sizes="32x32" href="./image/logo_nocapt.png" />
-    <title>Masuk 路 VAZATECH</title>
+    <title>Masuk · VAZATECH</title>
     <link rel="stylesheet" href="./assets/css/log.css" />
     <link
       href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css"
