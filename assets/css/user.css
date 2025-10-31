@@ -269,3 +269,153 @@ header.header--hidden {
 body.scrolled header {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
+/* === Header: center-kan search bar & selaraskan tinggi dgn tombol === */
+header {
+  grid-template-columns: auto 1fr auto;
+}
+
+.search {
+  padding: 0 !important; /* hilangkan geser kiri/atas */
+  justify-self: center; /* posisikan di tengah kolom tengah */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-wrap {
+  /* pembungkus utk dropdown hasil */
+  position: relative;
+  width: min(760px, 100%);
+}
+
+.search-input {
+  width: 100% !important;
+  height: 38px; /* samakan dgn .btn-login */
+}
+
+.search-results {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  background: #0d0b16;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  max-height: 60vh;
+  display: none;
+}
+
+.search-results.show {
+  display: block;
+}
+
+.search-item {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+  color: #e7e9f1;
+  cursor: pointer;
+}
+.search-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.search-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #2a2a38;
+}
+.search-title {
+  font-weight: 700;
+}
+.search-sub {
+  color: #a6adbb;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.search-price {
+  font-weight: 800;
+  color: #fff;
+}
+/* --- Fix: search tidak membesar di mobile --- */
+
+/* iOS & Android: cegah auto-zoom dan tinggi berubah */
+.search-input {
+  font-size: 16px; /* >=16px mencegah iOS zoom */
+  height: 38px; /* kunci tinggi */
+  line-height: 38px; /* jaga teks tetap sejajar */
+  padding: 0 14px; /* padding konsisten */
+  box-sizing: border-box;
+  -webkit-appearance: none; /* iOS style default */
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* jangan ubah ketebalan saat focus */
+}
+
+/* Saat fokus: jangan ubah height/border agar tidak “melompat” */
+.search-input:focus {
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15); /* efek fokus tanpa mengubah ukuran */
+}
+
+/* Container tetap fleksibel tapi tidak melar liar */
+.search {
+  justify-content: center;
+}
+.search-wrap {
+  width: min(760px, 100%);
+}
+
+@media (max-width: 640px) {
+  .search-wrap {
+    width: 100%;
+  }
+  .search-input {
+    font-size: 16px; /* tegaskan lagi di mobile */
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+/* iOS tweak tambahan (deteksi WebKit) */
+@supports (-webkit-touch-callout: none) {
+  input[type="search"] {
+    font-size: 16px;
+  }
+}
+
+/* Hindari text auto-resize di iOS */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+/* Empty state di panel hasil, tampil mirip kartu hasil */
+.search-empty {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: #0d0b16;
+  color: #e7e9f1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.search-empty__icon {
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0.9;
+  display: grid;
+  place-items: center;
+}
+.search-empty__title {
+  font-weight: 800;
+}
+.search-empty__sub {
+  color: #a6adbb;
+  font-size: 12px;
+  margin-top: 2px;
+}

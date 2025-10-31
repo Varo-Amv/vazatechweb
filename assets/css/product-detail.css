@@ -1,0 +1,470 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --card-bg: #ffffff;
+  --soft: #f4f6fb;
+  --border: #e6ebf5;
+  --text: #1f2330;
+  --muted: #6b7380;
+  --primary: #ff6a00;
+  --ok: #27ae60;
+}
+
+.pd-wrap {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.pd-alert {
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.pd-alert.success {
+  background: #e8f7ee;
+  color: #13683a;
+}
+
+.pd-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(10, 16, 30, 0.04);
+}
+
+.pd-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr;
+  gap: 16px;
+}
+@media (max-width: 980px) {
+  .pd-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pd-left {
+  padding: 16px;
+}
+.pd-right {
+  padding: 16px;
+}
+
+.pd-hero {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.pd-hero img {
+  width: 180px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.pd-badge {
+  margin-left: auto;
+  background: #eaf7ef;
+  color: #0f7a42;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pd-title {
+  margin-top: 12px;
+}
+.pd-title h1 {
+  margin: 0 0 6px 0;
+  font-size: 22px;
+  color: var(--text);
+}
+.pd-price-now {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ea580c;
+}
+
+.pd-selects {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+.pd-label {
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.pd-select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--soft);
+}
+
+.pd-right h2 {
+  margin: 0 0 12px;
+}
+.pd-form {
+  display: grid;
+  gap: 12px;
+}
+.pd-field-group {
+  display: grid;
+  gap: 6px;
+}
+.pd-field-group input {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 12px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.pd-qty-stock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.pd-qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pd-qty input {
+  width: 70px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+.pd-qty-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.pd-stock {
+  color: #0f7a42;
+  font-weight: 700;
+}
+
+.pd-total {
+  background: var(--soft);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+}
+
+.pd-buy-btn {
+  background: #ff6200;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  height: 52px;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.pd-buy-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pd-guard {
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+  margin: 0;
+}
+
+.pd-tabs {
+  margin-top: 16px;
+}
+.pd-tab-headers {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+}
+.pd-tab-headers button {
+  border: none;
+  background: transparent;
+  padding: 10px 8px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+}
+.pd-tab-headers button.active {
+  color: var(--text);
+  border-bottom: 3px solid var(--text);
+}
+
+.pd-tab-panels {
+  padding: 14px;
+}
+.pd-tab-panel {
+  display: none;
+  color: var(--text);
+}
+.pd-tab-panel.active {
+  display: block;
+}
+.pd-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+.pd-bullets li {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 6px 0;
+}
+.pd-bullets i {
+  color: var(--ok);
+}
+.pd-empty {
+  padding: 14px;
+}
+/* Actions: dua tombol berdampingan */
+.pd-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.pd-cart-btn,
+.pd-buy-btn {
+  height: 52px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+/* Sekunder (outline) */
+.pd-cart-btn {
+  background: #fff;
+  color: #ff6200;
+  border-color: #ff6200;
+}
+
+/* Primer (oranye penuh) */
+.pd-buy-btn {
+  background: #ff6200;
+  color: #fff;
+}
+
+/* Responsif: tumpuk di layar kecil */
+@media (max-width: 520px) {
+  .pd-actions {
+    grid-template-columns: 1fr;
+  }
+}
+/* === Layout hero: gambar kiri, info kanan === */
+.pd-hero {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.pd-hero-media img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+/* Info kanan berurutan vertikal */
+.pd-hero-info {
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 8px;
+}
+
+.pd-hero-info .pd-name {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.pd-hero-info .pd-game {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.pd-hero-info .pd-price-now {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ea580c;
+}
+
+/* Badge tidak lagi pakai margin-left:auto */
+.pd-hero-info .pd-badge {
+  background: #eaf7ef;
+  color: #0f7a42;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+/* Sembunyikan blok title lama jika masih ada di markup */
+.pd-title {
+  display: none !important;
+}
+
+/* Mobile: tumpuk vertikal */
+@media (max-width: 980px) {
+  .pd-hero {
+    grid-template-columns: 1fr;
+  }
+  .pd-hero-media img {
+    width: 100%;
+    height: auto;
+  }
+}
+/* --- Tombol: ikon keranjang saja + tombol beli tanpa ikon --- */
+
+/* Grid: tombol ikon auto, tombol beli sisanya */
+.pd-actions {
+  grid-template-columns: auto 1fr;
+}
+
+/* Bentuk tombol keranjang (ikon-only) */
+.pd-cart-btn.icon-only {
+  width: 56px; /* kotak mungil */
+  height: 52px;
+  padding: 0;
+  gap: 0;
+  border-width: 2px; /* outline lebih tegas */
+  font-size: 22px; /* ukuran ikon */
+  line-height: 1;
+}
+
+/* Pastikan tombol beli tetap tebal & lebar */
+.pd-buy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+/* Mobile: tetap menumpuk rapi */
+@media (max-width: 520px) {
+  .pd-actions {
+    grid-template-columns: 1fr;
+  }
+  .pd-cart-btn.icon-only {
+    width: 100%;
+    font-size: 20px;
+  } /* jika mau full width di mobile */
+}
+/* --- Mobile: tombol tetap berdampingan, keranjang kecil --- */
+.pd-actions {
+  display: grid;
+  grid-template-columns: 56px 1fr; /* kecil di kiri, besar di kanan */
+  gap: 12px;
+}
+
+.pd-cart-btn.icon-only {
+  width: 56px;
+  height: 52px;
+  padding: 0;
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Biarkan tombol beli mengisi ruang sisa */
+.pd-buy-btn {
+  height: 52px;
+  font-weight: 800;
+}
+
+/* Pastikan di layar kecil TETAP 2 kolom (override aturan lama yang menumpuk) */
+@media (max-width: 520px) {
+  .pd-actions {
+    grid-template-columns: 56px 1fr !important;
+  }
+  .pd-cart-btn.icon-only {
+    width: 56px;
+    height: 52px;
+  }
+  .pd-buy-btn {
+    height: 52px;
+  }
+}
+/* --- Fix: konten tab tidak keluar garis --- */
+.pd-tabs.pd-card {
+  overflow: hidden; /* ikuti radius kartu */
+}
+
+/* ruang dalam panel */
+.pd-tab-panels {
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* reset margin list & paragraf di dalam panel */
+.pd-tab-panel ol,
+.pd-tab-panel ul {
+  margin: 0; /* hilangkan margin yang menonjol */
+  padding-left: 1.25rem; /* beri indent rapi untuk angka/bullet */
+  list-style-position: outside;
+}
+
+.pd-tab-panel li {
+  margin: 6px 0;
+}
+
+.pd-tab-panel p {
+  margin: 0 0 10px;
+}
+
+/* jaga teks panjang tidak nabrak */
+.pd-tab-panel {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}

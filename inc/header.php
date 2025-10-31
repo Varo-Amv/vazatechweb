@@ -17,7 +17,7 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="icon" type="image/png" sizes="32x32" href="../image/logo_nocapt.png" />
     <title>VAZATECH — Topup Game Murah</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +27,8 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../assets/css/user.css" />
+    <link href="https://cdn.boxicons.com/fonts/basic/boxicons.min.css" rel="stylesheet" />
+<script src="/assets/js/live-search.js" defer></script>
         <header>
       <!-- Logo di kiri (SESUAI BASE KAMU) -->
       <div class="logo">
@@ -35,16 +37,17 @@ $avatarSrc = $avatarPath ? $avatarPath : $defaultAvatar;
       </div>
 
       <!-- Search di tengah -->
- <form id="searchForm" class="search" action="" method="get">
-  <input
-    class="search-input"
-    type="search"
-    name="q"
-    placeholder="Cari produk / game / kategori…"
-    value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q'], ENT_QUOTES, 'UTF-8') : '' ?>"
-    aria-label="Cari produk"
-  />
-</form>
+ <div class="search">
+  <div class="search-wrap">
+    <input id="liveSearch"
+           class="search-input"
+           type="search"
+           placeholder="Cari produk / game / kategori..."
+           autocomplete="off" />
+    <div id="searchResults" class="search-results" hidden></div>
+  </div>
+</div>
+
 
 <script>
 document.getElementById('searchForm').addEventListener('submit', function(e){

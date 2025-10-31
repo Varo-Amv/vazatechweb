@@ -14,7 +14,6 @@ $users_name  = $_SESSION['users_name']  ?? null;
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '');
 
 // --- LOG KUNJUNGAN HALAMAN ---
-require __DIR__.'/inc/koneksi.php';
 date_default_timezone_set('Asia/Jakarta'); // sesuaikan
 
 $ip    = $_SERVER['REMOTE_ADDR']            ?? '0.0.0.0';
@@ -235,7 +234,11 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
     <?php else: ?>
       <div class="cards-row" id="search-results">
         <?php foreach ($results as $p): ?>
-          <article class="card" data-id="<?= (int)$p['id'] ?>">
+          <article class="card"
+         data-id="<?= (int)$p['id'] ?>"
+         data-href="/product?id=<?= (int)$p['id'] ?>"
+         role="link" tabindex="0"
+         aria-label="<?= htmlspecialchars($p['product_name']) ?>">
    <div class="card__shine"></div>
             <div class="card__glow"></div>
             <div class="card__content">
@@ -289,7 +292,7 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
     <div class="cards-row" id="row-<?= e($cat) ?>">
       <?php if ($rows): ?>
         <?php foreach($rows as $p): ?>
-          <article class="card" data-game="<?= e($p['game']) ?>">
+          <article class="card" data-game="<?= e($p['game']) ?>" data-href="/product?id=<?= (int)$p['id'] ?>" role="link" tabindex="0" aria-label="<?= htmlspecialchars($p['product_name']) ?>">
             <div class="card__shine"></div>
             <div class="card__glow"></div>
             <div class="card__content">
@@ -337,6 +340,24 @@ if (isset($koneksi) && $koneksi instanceof mysqli) {
 </main>
 
 <!-- JS kecil: carousel + filter pills -->
+ <script>
+  // buat seluruh .card menuju ke halaman produk
+  document.addEventListener('click', function(e){
+    const card = e.target.closest('.card');
+    if (!card || !card.dataset.href) return;
+    // hindari klik saat ada teks yang diseleksi
+    if (window.getSelection && String(window.getSelection())) return;
+    window.location.href = card.dataset.href;
+  });
+
+  // aksesibilitas: Enter pada fokus kartu
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Enter') return;
+    const card = e.target.closest('.card');
+    if (card && card.dataset.href) window.location.href = card.dataset.href;
+  });
+</script>
+
 <script>
 (function(){
   // Carousel (biarkan seperti punyamu)

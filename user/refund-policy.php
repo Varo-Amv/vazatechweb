@@ -7,8 +7,8 @@ $home        = function_exists('url') ? url('/') : '/';
 $privacyUrl  = function_exists('url') ? url('kebijakan-privasi.php') : '/kebijakan-privasi.php';
 $tncUrl      = function_exists('url') ? url('snk.php') : '/snk.php';
 
-$privacyUrl  = function_exists('url') ? url('user/kebijakan-privasi') : '/user/kebijakan-privasi';
-$tncUrl      = function_exists('url') ? url('user/snk') : '/user/snk';
+$privacyUrl  = function_exists('url') ? url('kebijakan-privasi') : '/kebijakan-privasi';
+$tncUrl      = function_exists('url') ? url('snk') : '/snk';
 
 $contactEmail= 'support@vazatech.store';
 $brand       = 'VAZATECH';

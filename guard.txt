@@ -19,3 +19,5 @@ require __DIR__.'/../inc/auth.php';
 require_login(); // siapa pun yang login boleh akses
 
 "<?= url_dasar()."/.." ?>"
+
+"<?= base_url()."/profile_edit" ?>"
